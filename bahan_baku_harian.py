@@ -39,6 +39,3 @@ def page1():
             st.success("Data berhasil dikirim!")
         else:
             st.error("Terjadi kesalahan saat mengirim data.")
-
-if __name__ == "__main__":
-    bahan_baku_harian()
