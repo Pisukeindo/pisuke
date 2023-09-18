@@ -31,6 +31,7 @@ if st.session_state.username is None:
             else:
                 st.success("Login berhasil! Selamat datang, " + username)
                 st.session_state.username = user_data.iloc[0]['username']
+                st.experimental_rerun() 
                 
 
 # Halaman Dashboard
