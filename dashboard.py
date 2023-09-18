@@ -1,20 +1,17 @@
 import streamlit as st
-from bahan_baku_harian import page1
-from penjualan_harian import page2
 
 def db():
-    # Sidebar
+    # Sidebar dengan pilihan terbaris vertikal
     st.sidebar.title("Menu Navigasi")
-    selected_page = st.sidebar.selectbox(["Halaman Input", "Bahan Baku Harian", "Penjualan Harian"])
+    selected_page = st.sidebar.radio("Pilih Halaman:", ["Halaman 1", "Halaman 2", "Halaman 3"])  # Gantilah dengan nama-nama halaman Anda
 
     # Judul halaman
     st.title("Dashboard")
 
-    # Halaman Bahan Baku Harian
-    if selected_page == "Bahan Baku Harian":
-        page1()
-
-    # Halaman Penjualan Harian
-    elif selected_page == "Penjualan Harian":
-        page2()
-
+    # Tambahkan logika untuk masing-masing halaman di sini
+    if selected_page == "Halaman 1":
+        st.write("Ini adalah Halaman 1.")
+    elif selected_page == "Halaman 2":
+        st.write("Ini adalah Halaman 2.")
+    elif selected_page == "Halaman 3":
+        st.write("Ini adalah Halaman 3.")
