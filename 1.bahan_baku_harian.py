@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def page_1():
+def page1():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbw9IFGsHreAqh4qQiRuGnBk_D0G32d3XfhjZjYY5xW_lrUewF3A3-YFbo_U7Kzsi4dw/exec"
 
