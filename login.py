@@ -5,7 +5,7 @@ def login():
     st.title("Aplikasi Streamlit dengan Fitur Login")
 
     # Load data akun
-    akun = "https://docs.google.com/spreadsheets/d/1Qlt_9K0cTgAgdCoIvo9fEWnQi-QVokfAASNuECoOzpU/export?format=csv"
+    akun = "https://docs.google.com/spreadsheets/d/1Qs5LxFAcYkhVnAk0zAOBAu9FK8KVR8EKhg0Bl27DIk8/export?format=csv"
     account_data = pd.read_csv(akun)
 
     # Tambahkan input teks untuk username dan password
