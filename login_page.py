@@ -28,4 +28,3 @@ def login():
             st.success("Login berhasil! Selamat datang, " + username)
             st.session_state.username = user_data.iloc[0]['username']
             db()
-            
