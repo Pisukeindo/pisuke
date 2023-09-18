@@ -10,7 +10,7 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Bahan Baku Harian", "Penjualan Harian"])
+    selected_page = st.selectbox("Pilih Halaman:", ["Bahan Baku Harian", "Penjualan Harian"])
     if selected_page == "Bahan Baku Harian":
       page1()
     elif selected_page == "Penjualan Harian":
