@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from dashboard import db
 
 def login():
     st.title("Aplikasi Streamlit dengan Fitur Login")
@@ -26,3 +27,5 @@ def login():
         else:
             st.success("Login berhasil! Selamat datang, " + username)
             st.session_state.username = user_data.iloc[0]['username']
+            db()
+            
