@@ -1,5 +1,5 @@
 import streamlit as st
-from login import login
+from login_page import login
 from bahan_baku_harian import page1
 from penjualan_harian import page2
 # Inisialisasi status login
