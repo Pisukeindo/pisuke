@@ -1,6 +1,6 @@
 import streamlit as st
-from page1 import page1
-from page2 import page2
+from bahan_baku_harian import page1
+from penjualan_harian import page2
 
 def db():
     # Sidebar
