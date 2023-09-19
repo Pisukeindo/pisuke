@@ -5,10 +5,9 @@ from dashboard import db
 # Inisialisasi status login
 if "username" not in st.session_state:
     st.session_state.username = None
-    st.session_state.logged_in = False
 
 # Halaman Login
-if not st.session_state.logged_in:
+if st.session_state.username is None:
     st.title("Aplikasi Streamlit dengan Fitur Login")
 
     # Load data akun
@@ -32,7 +31,7 @@ if not st.session_state.logged_in:
             else:
                 st.success("Login berhasil! Selamat datang, " + username)
                 st.session_state.username = user_data.iloc[0]['username']
-                st.session_state.logged_in = True
+                st.experimental_rerun() 
 
 # Halaman Dashboard
 else:
