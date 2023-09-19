@@ -11,7 +11,7 @@ def page3():
             ribuan = digit + ribuan
             if (i + 1) % 3 == 0 and i != n - 1:
                 ribuan = "." + ribuan
-        return "Total Pendapatan Hari ini: Rp " + ribuan
+        return "Total Pendapatan: Rp " + ribuan
         
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbziM5KXcJV20k5gSC8GbvTW1oj3muhc9abd_XQflBV8rgG0MEKo-ekvuqRxCt-3wk0Z/exec"
@@ -26,7 +26,6 @@ def page3():
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
     total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
     st.write(total_pendapatan)
-    jumlah_rupiah = format_rupiah(total_pendapatan)
     st.write(f"{jumlah_rupiah}")
     
     if st.button("Kirim Data"):
