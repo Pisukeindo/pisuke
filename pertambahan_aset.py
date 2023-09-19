@@ -2,6 +2,17 @@ import streamlit as st
 import requests
 
 def page4():
+
+    def format_rupiah(angka):
+        angka_str = str(angka)
+        ribuan = ""
+        n = len(angka_str)
+        for i, digit in enumerate(angka_str[::-1]):
+            ribuan = digit + ribuan
+            if (i + 1) % 3 == 0 and i != n - 1:
+                ribuan = "." + ribuan
+        return "Total Harga: Rp " + ribuan
+        
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbwKswDrRauvewav1jJ3q5Cp9quz1nkZoLeM_xttRpSIip64lsl2-MPUc8virHge8LI/exec"
     st.title("PERTAMBAHAN ASET")
@@ -14,6 +25,8 @@ def page4():
     Jumlah = st.number_input("Jumlah", min_value=0)
     Harga = st.number_input("Harga", min_value=0)
     total_harga = (Jumlah*Harga)
+    jumlah_rupiah = format_rupiah(total_harga)
+    st.write(f"{jumlah_rupiah}")
     Keterangan = st.text_input("Keterangan")
     
     
