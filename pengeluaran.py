@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from babel.numbers import format_currency
 
 def page7():
     # URL layanan web Apps Script
@@ -7,26 +8,15 @@ def page7():
     # Tampilan Streamlit
     st.title("PENGELUARAN")
 
-    # Fungsi untuk mengubah nilai numerik ke format Rupiah
-    def format_rupiah(angka):
-        angka_str = str(angka)
-        if len(angka_str) <= 3:
-            return f"Rp {angka_str}"
-        else:
-            ribuan = angka_str[:-3]
-            ratusan = angka_str[-3:]
-            return f"Rp {ribuan}.{ratusan}"
-
     # Kolom input
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = int(st.number_input("Jumlah", min_value=0))  # Konversi ke int untuk menghilangkan desimal
-    jumlah_rupiah = format_rupiah(jumlah)
-    st.write(f"Jumlah: {jumlah_rupiah}")
+    jumlah = int(st.number_input("Jumlah (Rupiah)", min_value=0))  # Konversi ke int untuk menghilangkan desimal
     keterangan = st.text_input("Keterangan")
 
-   
+    # Mengubah jumlah menjadi format Rupiah dengan separator ribuan, jutaan, miliaran, dst.
+    jumlah_rupiah = format_currency(jumlah, 'IDR', locale='id_ID')
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
