@@ -26,7 +26,7 @@ else:
         page3() 
     elif selected_page == "Pertambahan Aset":
         page4() 
-        elif selected_page == "Bahan Baku Harian":
+    elif selected_page == "Bahan Baku Harian":
         page5() 
 
 
