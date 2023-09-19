@@ -6,7 +6,7 @@ from bahan_baku_harian import page5
 from quality_control import page2
 from penjualan_harian import page3
 from karyawan import page6
-from pengeluaran import page7
+from pengeluaran_harian import page7
 from output import laporan
 
 # Inisialisasi status login
