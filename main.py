@@ -19,7 +19,7 @@ else:
     selected_page = st.sidebar.radio("Pilih Halaman:", ["Dashboard", "tes"])
     if selected_page == "Dashboard":
       page1()
-    elif selected_page == "Dashboard":
+    elif selected_page == "tes":
       page2()
   
 
