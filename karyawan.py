@@ -13,7 +13,7 @@ def page6():
     posisi = st.text_input("Posisi")
     kontak = st.text_input("Kontak")
     alamat = st.text_input("Alamat")
-    gaji = st.number_input("Gaji")
+    gaji = st.number_input("Gaji", min_value=0)
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
 
