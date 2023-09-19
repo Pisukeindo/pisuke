@@ -14,8 +14,6 @@ if st.session_state.username is None:
     st.title("Halaman Login")
     login()  # Panggil fungsi login() untuk menampilkan halaman login
     
-elif "username"  in st.session_state:
-    st.experimental_rerun()
 else:
     # Halaman setelah login
     selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control"])
