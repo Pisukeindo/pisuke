@@ -6,13 +6,12 @@ def page1():
     apps_script_url = "https://script.google.com/macros/s/AKfycbwV9P5upUPCVd3mK4i3X8CngIxvoxHhrk_SwnWbqTAjkTHp25j9uTj3yCth6r8jtmcfQg/exec"
     # Tampilan Streamlit
     st.title("SUPLIER")
-    st.write("Masukkan Data:")
 
     # Kolom input
-    nama_suplier = st.text_input("nama_suplier")
-    jenis_barang = st.text_input("jenis_barang")
-    kontak = st.text_input("kontak")
-    keterangan = st.text_input("keterangan")
+    nama_suplier = st.text_input("Nama Suplier")
+    jenis_barang = st.text_input("Jenis Barang")
+    kontak = st.text_input("Kontak")
+    keterangan = st.text_input("Keterangan")
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
