@@ -5,6 +5,7 @@ from quality_control import page2
 from penjualan_harian import page3
 from pertambahan_aset import page4
 from bahan_baku_harian import page5
+from karyawan impor page6
 from output import laporan
 
 # Inisialisasi status login
@@ -23,7 +24,7 @@ else:
     if selected_menu == "Input Data":
         selected_page = st.sidebar.radio(
             "Input Data:",
-            ["Suplier", "Quality Control", "Penjualan Harian", "Pertambahan Aset", "Bahan Baku Harian"]
+            ["Suplier", "Quality Control", "Penjualan Harian", "Pertambahan Aset", "Bahan Baku Harian", "Karyawan"]
         )
 
         if selected_page == "Suplier":
@@ -36,14 +37,18 @@ else:
             page4()
         elif selected_page == "Bahan Baku Harian":
             page5()
+        elif selected_page == "Karyawan":
+            page6()
     
     elif selected_menu == "Laporan":
         selected_laporan = st.sidebar.radio(
             "Laporan:",
-            ["Laporan QC", "Laporan Suplier"]  # Ganti dengan nama laporan yang sesuai
+            ["Laporan QC", "Laporan Suplier", "Data Karyawan"]  # Ganti dengan nama laporan yang sesuai
         )
 
         if selected_laporan == "Laporan QC":
             laporan("qc")  # Memanggil fungsi laporan dengan parameter yang sesuai
         elif selected_laporan == "Laporan Suplier":
             laporan("suplier")  # Memanggil fungsi laporan dengan parameter yang sesuai
+        elif selected_laporan == "Data Karyawan":
+            laporan("karyawan")  # Memanggil fungsi laporan dengan parameter yang sesuai
