@@ -30,10 +30,13 @@ else:
     elif selected_page == "Bahan Baku Harian":
         page5() 
     elif selected_page == "Laporan QC":
+        st.title("Laporan Quality Control")
         laporan("qc") 
     elif selected_page == "Laporan Suplier":
+        st.title("Laporan Suplier")
         laporan("suplier") 
     elif selected_page == "Laporan Penjualan Harian":
+        st.title("Laporan Penjualan Harian")
         laporan("penjualan_harian") 
 
 
