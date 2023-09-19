@@ -31,23 +31,17 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-# Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta dan filter
-def get_data_from_google_apps_script(selected_sheet, filter_params=None):
-    # Membuat parameter query string untuk filter
-    params = {"sheet": selected_sheet}
-    if filter_params:
-        params.update(filter_params)
-    
-    response = requests.get(google_apps_script_url, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        return None
+def laporan(selected_sheet):
+    # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
+    def get_data_from_google_apps_script(selected_sheet):
+        response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        else:
+            return None
 
-# Fungsi untuk menampilkan laporan dalam format tabel HTML
-def show_laporan(selected_sheet, filter_params=None):
-    data = get_data_from_google_apps_script(selected_sheet, filter_params)
+    data = get_data_from_google_apps_script(selected_sheet)
 
     if data is not None:
         for sheet_data in data:
@@ -91,6 +85,4 @@ def show_laporan(selected_sheet, filter_params=None):
 
 if __name__ == "__main__":
     selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
-    filter_waktu = st.date_input("Filter Waktu (Tanggal)")
-    filter_params = {"waktu": format_tanggal(filter_waktu)}  # Konversi tanggal ke format yang sesuai
-    show_laporan(selected_sheet, filter_params)
+    laporan(selected_sheet)
