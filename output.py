@@ -1,9 +1,21 @@
 import streamlit as st
 import requests
 import re
+from datetime import datetime
 
 # URL Google Apps Script yang menghasilkan data JSON
 google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
+
+# Fungsi untuk mengubah format tanggal
+def format_tanggal(tanggal):
+    try:
+        # Ubah string tanggal ke dalam objek datetime
+        tanggal_obj = datetime.fromisoformat(tanggal)
+        # Ubah format tanggal menjadi "tahun-bulan-tanggal"
+        tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
+        return tanggal_formatted
+    except Exception as e:
+        return tanggal  # Kembalikan tanggal asli jika ada kesalahan
 
 def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
@@ -27,6 +39,12 @@ def laporan(selected_sheet):
                 headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
+                # Konversi data tanggal dalam tabel menjadi "tahun-bulan-tanggal"
+                for i, header in enumerate(headers):
+                    if header in kolom_tanggal_bulan_waktu:
+                        for j in range(1, len(sheet_values)):
+                            sheet_values[j][i] = format_tanggal(sheet_values[j][i])
+
                 # Konversi data menjadi format tabel HTML
                 table_html = "<table><tr>"
                 for header in headers:
@@ -45,3 +63,4 @@ def laporan(selected_sheet):
 if __name__ == "__main__":
     selected_sheet = "suplier"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
+
