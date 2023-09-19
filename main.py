@@ -29,12 +29,16 @@ else:
         )
 
         if selected_page == "Quality Control":
+            st.title("Quality Control")
             page2()
         elif selected_page == "Penjualan Harian":
+            st.title("Penjualan Harian")
             page3()
         elif selected_page == "Bahan Baku Harian":
+            st.title("Bahan Baku Harian")
             page5()
         elif selected_page == "Pengeluaran Harian":
+            st.title("Pengeluaran Harian")
             page7()
 
     elif selected_menu == "Input Data":
@@ -44,6 +48,7 @@ else:
         )
 
         if selected_page == "Suplier":
+            
             page1()
         elif selected_page == "Pertambahan Aset":
             page4()
