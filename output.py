@@ -5,10 +5,9 @@ import re
 from datetime import datetime
 
 def page6():
-    # URL Google Apps Script yang menghasilkan data JSON
-    google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
-    
-    def output():
+        # URL Google Apps Script yang menghasilkan data JSON
+        google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
+
         def main():
             st.title("Aplikasi Streamlit untuk Menampilkan Data Google Spreadsheet")
         
