@@ -24,6 +24,7 @@ def login():
         if username in account_data and account_data[username] == password:
             st.success("Login berhasil! Selamat datang, " + username)
             st.session_state.username = username
+            st.experimental_rerun()
         else:
             st.error("Login gagal. Cek kembali username dan password Anda.")
 
