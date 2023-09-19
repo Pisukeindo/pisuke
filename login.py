@@ -4,9 +4,11 @@ import pandas as pd
 def login():
     st.title("Aplikasi Streamlit dengan Fitur Login")
 
-    # Load data akun
-    akun = "https://docs.google.com/spreadsheets/d/1Qlt_9K0cTgAgdCoIvo9fEWnQi-QVokfAASNuECoOzpU/export?format=csv"
-    account_data = pd.read_csv(akun)
+    account_data = {
+    'tes': 'tes',
+    'user2': 'password2',
+    'user3': 'password3'
+}
 
     # Tambahkan input teks untuk username dan password
     username = st.text_input("Username:")
