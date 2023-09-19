@@ -15,7 +15,7 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_menu = st.sidebar.selectbox(
+    selected_menu = st.sidebar.radio(
         "Pilih Menu:",
         ["Input Data", "Laporan"]
     )
