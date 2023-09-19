@@ -37,5 +37,3 @@ def page2():
             else:
                 st.error("Terjadi kesalahan saat mengirim data.")
 
-# Panggil fungsi page2 untuk menjalankan halaman
-page2()
