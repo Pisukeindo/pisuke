@@ -7,8 +7,6 @@ from datetime import datetime
 google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
 
 def laporan(selected_sheet):
-    st.title("Aplikasi Streamlit untuk Menampilkan Data Google Spreadsheet")
-
     # Fungsi untuk mengambil data dari Google Apps Script
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
