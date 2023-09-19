@@ -1,16 +1,21 @@
+# main.py
 import streamlit as st
-from login_page import login
-from data_page import input_data, output_data
+from login import login
+from suplier import page1
 
-st.sidebar.title("Menu")
-pages = ["Login", "Halaman Utama", "Input Data", "Output Data"]
-choice = st.sidebar.radio("Pilih Halaman", pages)
+# Inisialisasi status login
+if "username" not in st.session_state:
+    st.session_state.username = None
 
-if choice == "Login":
-    login()
-elif choice == "Halaman Utama":
-    main("admin")  # Gantilah "admin" dengan username yang sudah terautentikasi.
-elif choice == "Input Data":
-    input_data()
-elif choice == "Output Data":
-    output_data()
+# Menampilkan halaman sesuai dengan status login
+if st.session_state.username is None:
+    # Halaman login
+    st.title("Halaman Login")
+    login()  # Panggil fungsi login() untuk menampilkan halaman login
+else:
+    # Halaman setelah login
+    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Halaman Lain"])
+    if selected_page == "Dashboard":
+        st.write("Ini adalah halaman Dashboard.")
+    elif selected_page == "Halaman Lain":
+        page1()  # Panggil fungsi run_suplier_app() untuk menampilkan halaman suplier
