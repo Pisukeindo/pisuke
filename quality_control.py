@@ -3,7 +3,7 @@ import requests
 
 def page2():
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbyOriEgBp0xcLF78s5pBvEUXWwdnWN4KkQaPdw8g5LzIbxFxJzAu_wDpmY9o3KzHQee4Q/exec"
+    apps_script_url = "https://script.google.com/macros/s/AKfycbzgbjFZYnZGUU1L3JQ3FDPJAjvRo5DX_itajYqcFRsHZ_UORwDbXDwUuRNIukwgYyaOBQ/exec"
     
     # Tampilan Streamlit
     st.title("QUALITY CONTROL")
