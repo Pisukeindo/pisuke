@@ -30,10 +30,10 @@ else:
     elif selected_page == "Bahan Baku Harian":
         page5() 
     elif selected_page == "Laporan QC":
-        laporan(qc) 
+        laporan("qc") 
     elif selected_page == "Laporan Suplier":
-        laporan(suplier) 
+        laporan("suplier") 
     elif selected_page == "Laporan Penjualan Harian":
-        laporan(penjualan_harian) 
+        laporan("penjualan_harian") 
 
 
