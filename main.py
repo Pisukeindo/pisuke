@@ -15,4 +15,10 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    page1()
+    st.sidebar.title("INPUT DATA")
+    if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
+        page3()
+    if st.sidebar.button("Quality Control", key="qc_button"):
+        page2()
+    if st.sidebar.button("Suplier", key="suplier_button"):
+        page1()
