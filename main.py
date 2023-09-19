@@ -15,7 +15,7 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_page = st.sidebar.checkbox("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control", 
+    selected_page = st.sidebar.("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control", 
                                                             "Penjualan Harian", "Pertambahan Aset", "Bahan Baku Harian", "Laporan QC", "Laporan Suplier", "Laporan Penjualan Harian"])
     if selected_page == "Dashboard":
         st.write("Ini adalah halaman Dashboard.")
