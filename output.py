@@ -1,50 +1,24 @@
 import streamlit as st
 import requests
-import pandas as pd
 import re
 from datetime import datetime
 
 # URL Google Apps Script yang menghasilkan data JSON
 google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
 
-def laporan_suplier():
-    tampilkan_laporan()
-    response = requests.get(google_apps_script_url, params={"sheet": "suplier"})
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        return None
-
-def laporan_qc():
-    tampilkan_laporan()
-    response = requests.get(google_apps_script_url, params={"sheet": "qc"})
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        return None
-
-def laporan_penjualan_harian():
-    tampilkan_laporan()
-    response = requests.get(google_apps_script_url, params={"sheet": "penjualan_harian"})
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        return None
-
-def tampilkan_laporan(selected_sheet):
+def laporan(selected_sheet):
     st.title("Aplikasi Streamlit untuk Menampilkan Data Google Spreadsheet")
 
-    if selected_sheet == "suplier":
-        data = laporan_suplier()
-    elif selected_sheet == "qc":
-        data = laporan_qc()
-    elif selected_sheet == "penjualan_harian":
-        data = laporan_penjualan_harian()
-    else:
-        data = None
+    # Fungsi untuk mengambil data dari Google Apps Script
+    def get_data_from_google_apps_script(selected_sheet):
+        response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        else:
+            return None
+
+    data = get_data_from_google_apps_script(selected_sheet)
 
     if data is not None:
         for sheet_data in data:
@@ -83,6 +57,6 @@ def tampilkan_laporan(selected_sheet):
                 # Tampilkan tabel HTML
                 st.markdown(table_html, unsafe_allow_html=True)
 
-if __name__ == "__tampilkan_laporan__":
-    selected_sheet = st.selectbox("Pilih Lembar:", ["suplier", "qc", "penjualan_harian"])
-    tampilkan_laporan(selected_sheet)
+if __name__ == "__main__":
+    selected_sheet = "suplier"  # Ganti dengan lembar yang Anda inginkan
+    laporan(selected_sheet)
