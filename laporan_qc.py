@@ -31,7 +31,8 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-def laporanqc(selected_sheet):
+def laporanqc():
+    selected_sheet = "QC"
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -84,5 +85,5 @@ def laporanqc(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = "QC"  # Ganti dengan lembar "QC" yang Anda inginkan
+      # Ganti dengan lembar "QC" yang Anda inginkan
     laporanqc(selected_sheet)
