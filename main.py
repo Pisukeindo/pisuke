@@ -1,7 +1,7 @@
 # main.py
 import streamlit as st
 from login import login
-from halaman import suplier
+from suplier import page1
 
 # Inisialisasi status login
 if "username" not in st.session_state:
@@ -19,4 +19,4 @@ else:
     if selected_page == "Dashboard":
         st.write("Ini adalah halaman Dashboard.")
     elif selected_page == "Halaman Lain":
-        suplier.page1()  # Panggil fungsi run_suplier_app() untuk menampilkan halaman suplier
+        page1()  # Panggil fungsi run_suplier_app() untuk menampilkan halaman suplier
