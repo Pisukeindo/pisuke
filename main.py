@@ -15,25 +15,50 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    st.sidebar.title("INPUT DATA")
-    if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
-        page3()
-    if st.sidebar.button("Quality Control", key="qc_button"):
-        page2()
-    if st.sidebar.button("Suplier", key="suplier_button"):
-        page1()
-    if st.sidebar.button("Pertambahan Aset", key="pertambahan_aset_button"):
-        page4()
-    if st.sidebar.button("Bahan Baku Harian", key="bahan_baku_harian_button"):
-        page5()
+    sidebar = st.sidebar
+    sidebar.title("MENU")
 
-    st.sidebar.title("LAPORAN")
-    if st.sidebar.button("Laporan QC", key="laporan_qc_button"):
-        st.title("Laporan Quality Control")
-        laporan("qc")
-    if st.sidebar.button("Laporan Penjualan", key="laporan_penjualan_button"):
-        st.title("Laporan Penjualan Harian")
-        laporan("penjualan_harian")
+    # Daftar menu "INPUT DATA"
+    input_data_menu = {
+        "Penjualan Harian": page3,
+        "Quality Control": page2,
+        "Suplier": page1,
+        "Pertambahan Aset": page4,
+        "Bahan Baku Harian": page5,
+    }
+
+    # Daftar menu "LAPORAN"
+    laporan_menu = {
+        "Laporan QC": ("Laporan Quality Control", "qc"),
+        "Laporan Penjualan": ("Laporan Penjualan Harian", "penjualan_harian"),
+    }
+
+    for label, page_func in input_data_menu.items():
+        if sidebar.button(label, key=f"{label}_button"):
+            page_func()
+            # Tambahkan kode JavaScript untuk menutup sidebar setelah memilih fitur
+            sidebar.markdown(
+                """
+                <script>
+                document.getElementsByClassName("sidebar")[0].style.display = "none";
+                </script>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    for label, (title, laporan_type) in laporan_menu.items():
+        if sidebar.button(label, key=f"{label}_button"):
+            st.title(title)
+            laporan(laporan_type)
+            # Tambahkan kode JavaScript untuk menutup sidebar setelah memilih fitur
+            sidebar.markdown(
+                """
+                <script>
+                document.getElementsByClassName("sidebar")[0].style.display = "none";
+                </script>
+                """,
+                unsafe_allow_html=True,
+            )
 
 # Tambahkan CSS untuk menghilangkan persegi di sekitar tombol
 st.markdown(
