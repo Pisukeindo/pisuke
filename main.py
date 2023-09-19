@@ -15,28 +15,28 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    st.sidebar.title("MENU")
+    st.sidebar.title("INPUT DATA")
 
     # Menu "INPUT DATA"
-    with st.sidebar.expander("INPUT DATA"):
-        selected_page = st.radio("", ["Penjualan Harian", "Quality Control", "Suplier", "Pertambahan Aset", "Bahan Baku Harian"])
-        if selected_page == "Penjualan Harian":
-            page3()
-        elif selected_page == "Quality Control":
-            page2()
-        elif selected_page == "Suplier":
-            page1()
-        elif selected_page == "Pertambahan Aset":
-            page4()
-        elif selected_page == "Bahan Baku Harian":
-            page5()
+    selected_page = st.sidebar.radio("", ["Penjualan Harian", "Quality Control", "Suplier", "Pertambahan Aset", "Bahan Baku Harian"])
+    if selected_page == "Penjualan Harian":
+        page3()
+    elif selected_page == "Quality Control":
+        page2()
+    elif selected_page == "Suplier":
+        page1()
+    elif selected_page == "Pertambahan Aset":
+        page4()
+    elif selected_page == "Bahan Baku Harian":
+        page5()
+
+    st.sidebar.title("LAPORAN")
 
     # Menu "LAPORAN"
-    with st.sidebar.expander("LAPORAN"):
-        selected_page = st.radio("", ["Laporan QC", "Laporan Penjualan"])
-        if selected_page == "Laporan QC":
-            st.title("Laporan Quality Control")
-            laporan("qc")
-        elif selected_page == "Laporan Penjualan":
-            st.title("Laporan Penjualan Harian")
-            laporan("penjualan_harian")
+    selected_page = st.sidebar.radio("", ["Laporan QC", "Laporan Penjualan"])
+    if selected_page == "Laporan QC":
+        st.title("Laporan Quality Control")
+        laporan("qc")
+    elif selected_page == "Laporan Penjualan":
+        st.title("Laporan Penjualan Harian")
+        laporan("penjualan_harian")
