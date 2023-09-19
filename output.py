@@ -31,21 +31,22 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-def laporan(selected_sheet, filter_params=None):
-    # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta dan filter
-    def get_data_from_google_apps_script(selected_sheet, filter_params=None):
-        # Membuat parameter query string untuk filter
-        params = {"sheet": selected_sheet}
-        if filter_params:
-            params.update(filter_params)
-        
-        response = requests.get(google_apps_script_url, params=params)
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        else:
-            return None
+# Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta dan filter
+def get_data_from_google_apps_script(selected_sheet, filter_params=None):
+    # Membuat parameter query string untuk filter
+    params = {"sheet": selected_sheet}
+    if filter_params:
+        params.update(filter_params)
+    
+    response = requests.get(google_apps_script_url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
 
+# Fungsi untuk menampilkan laporan dalam format tabel HTML
+def show_laporan(selected_sheet, filter_params=None):
     data = get_data_from_google_apps_script(selected_sheet, filter_params)
 
     if data is not None:
@@ -88,53 +89,8 @@ def laporan(selected_sheet, filter_params=None):
                 # Tampilkan tabel HTML
                 st.markdown(table_html, unsafe_allow_html=True)
 
-# Kode Streamlit
-import streamlit as st
-
-# Filter untuk laporan Penjualan Harian
-filter_penjualan_harian = {
-    "waktu": st.date_input("Filter Waktu (Tanggal)"),
-    "outlet": st.selectbox("Filter Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
-}
-
-# Filter untuk laporan Pertambahan Aset
-filter_pertambahan_aset = {
-    "tanggal": st.date_input("Filter Tanggal")
-}
-
-# Filter untuk laporan Karyawan
-filter_karyawan = {
-    "nama": st.text_input("Filter Nama Karyawan")
-}
-
-# Filter untuk laporan Pengeluaran Harian
-filter_pengeluaran_harian = {
-    "waktu": st.date_input("Filter Waktu (Tanggal)")
-}
-
-selected_laporan = st.sidebar.radio(
-    "Laporan:",
-    ["Laporan QC", "Laporan Suplier", "Laporan Karyawan", "Laporan Pertambahan Aset", 
-     "Laporan Bahan Baku Harian", "Laporan Stok Bahan Baku", "Laporan Pengeluaran Harian"]
-)
-
-if selected_laporan == "Laporan QC":
-    laporan("qc")
-elif selected_laporan == "Laporan Suplier":
-    filter_suplier = {
-        "nama": st.text_input("Filter Nama Suplier")
-    }
-    laporan("suplier", filter_suplier)
-elif selected_laporan == "Laporan Karyawan":
-    laporan("karyawan", filter_karyawan)
-elif selected_laporan == "Laporan Pertambahan Aset":
-    laporan("pertambahan_aset", filter_pertambahan_aset)
-elif selected_laporan == "Laporan Bahan Baku Harian":
-    laporan("bahan_baku_harian")
-elif selected_laporan == "Laporan Stok Bahan Baku":
-    filter_stok_bahan_baku = {
-        "waktu": st.date_input("Filter Waktu (Tanggal)")
-    }
-    laporan("stok_bahan_baku", filter_stok_bahan_baku)
-elif selected_laporan == "Laporan Pengeluaran Harian":
-    laporan("pengeluaran_harian", filter_pengeluaran_harian)
+if __name__ == "__main__":
+    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
+    filter_waktu = st.date_input("Filter Waktu (Tanggal)")
+    filter_params = {"waktu": format_tanggal(filter_waktu)}  # Konversi tanggal ke format yang sesuai
+    show_laporan(selected_sheet, filter_params)
