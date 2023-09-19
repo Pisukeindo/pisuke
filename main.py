@@ -20,20 +20,7 @@ else:
         page3()
     if st.sidebar.button("Quality Control", key="qc_button"):
         page2()
-    if st.sidebar.button("Suplier", key="suplier_button"):
-        page1()
-    if st.sidebar.button("Pertambahan Aset", key="pertambahan_aset_button"):
-        page4()
-    if st.sidebar.button("Bahan Baku Harian", key="bahan_baku_harian_button"):
-        page5()
-
-    st.sidebar.title("LAPORAN")
-    if st.sidebar.button("Laporan QC", key="laporan_qc_button"):
-        st.title("Laporan Quality Control")
-        laporan("qc")
-    if st.sidebar.button("Laporan Penjualan", key="laporan_penjualan_button"):
-        st.title("Laporan Penjualan Harian")
-        laporan("penjualan_harian")
+   
 
 # Tambahkan CSS untuk menghilangkan persegi di sekitar tombol
 st.markdown(
