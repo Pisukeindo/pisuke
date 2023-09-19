@@ -15,25 +15,31 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    # Radio button untuk memilih "Halaman" atau "Laporan"
-    selected_option = st.sidebar.radio(
+    # Sidebar dengan dua menu "PAGE" dan "LAPORAN"
+    selected_menu = st.sidebar.radio(
         "Pilih Menu:",
-        ["Halaman", "Laporan"]
+        ["PAGE", "LAPORAN"]
     )
 
-    if selected_option == "Halaman":
-        # Radio button untuk memilih halaman
+    if selected_menu == "PAGE":
+        # Submenu "PAGE" dengan radio button
         selected_page = st.sidebar.radio(
             "Pilih Halaman:",
-            ["Dashboard", "tes"]
+            ["page1", "page2", "page3", "page4", "page5"]
         )
 
-        if selected_page == "Dashboard":
+        if selected_page == "page1":
             page1()
-        elif selected_page == "tes":
+        elif selected_page == "page2":
             page2()
-    else:
-        # Radio button untuk memilih jenis laporan
+        elif selected_page == "page3":
+            page3()
+        elif selected_page == "page4":
+            page4()
+        elif selected_page == "page5":
+            page5()
+    elif selected_menu == "LAPORAN":
+        # Submenu "LAPORAN" dengan radio button
         selected_report = st.sidebar.radio(
             "Pilih Laporan:",
             ["Laporan QC", "Laporan Penjualan"]
