@@ -8,11 +8,12 @@ def page7():
     st.title("PENGELUARAN")
   
     # Kolom input
+    tanggal = st.date_input("Tanggal")
+    tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
     keterangan = st.text_input("Keterangan")
     jumlah = st.number_input("Jumlah", min_value=0)
-    tanggal = st.date_input("Tanggal")
-    tanggal_str = tanggal.strftime('%Y-%m-%d')
+    
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
