@@ -26,9 +26,6 @@ def laporan(selected_sheet):
             sheet_values = sheet_data['data']
 
             if selected_sheet == sheet_name:
-                st.header(f"Lembar: {sheet_name}")
-                st.write("Data dari Google Spreadsheet:")
-
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
