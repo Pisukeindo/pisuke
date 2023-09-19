@@ -13,6 +13,7 @@ def db():
     # Menu Input
     st.sidebar.header("Input")
     if st.sidebar.button("Halaman 1"):
+        st.write("tes")
         page1()
     if st.sidebar.button("Halaman 2"):
         page2()
