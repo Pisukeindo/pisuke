@@ -54,7 +54,8 @@ else:
     elif selected_menu == "Laporan":
         selected_laporan = st.sidebar.radio(
             "Laporan:",
-            ["Laporan QC", "Laporan Suplier", "Laporan Karyawan"]
+            ["Laporan QC", "Laporan Suplier", "Laporan Karyawan", "Laporan Pertambahan Aset", 
+             "Laporan Bahan Baku Harian", "Laporan Stok Bahan Baku", "Laporan Pengeluaran Harian"]
         )
 
         if selected_laporan == "Laporan QC":
@@ -63,3 +64,9 @@ else:
             laporan("suplier")
         elif selected_laporan == "Data Karyawan":
             laporan("karyawan")
+        elif selected_laporan == "Laporan Bahan Baku Harian":
+            laporan("bahan_baku_harian")
+        elif selected_laporan == "Laporan Stok Bahan Baku":
+            laporan("stok_bahan_baku")
+        elif selected_laporan == "Laporan Pengeluaran Harian":
+            laporan("pengeluaran_harian")
