@@ -21,11 +21,12 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = int(st.number_input("Jumlah (Rupiah)", min_value=0))  # Konversi ke int untuk menghilangkan desimal
+    jumlah = int(st.number_input(f"Jumlah: {jumlah_rupiah}", min_value=0))  # Konversi ke int untuk menghilangkan desimal
+    jumlah_rupiah = format_rupiah(jumlah)
+    st.write(""
     keterangan = st.text_input("Keterangan")
 
-    # Mengubah jumlah menjadi format Rupiah
-    jumlah_rupiah = format_rupiah(jumlah)
+   
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
