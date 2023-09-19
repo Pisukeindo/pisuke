@@ -15,8 +15,6 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-     # Buat tombol "Back" di tengah sidebar
-    st.sidebar.markdown("<h1 style='text-align: center;'>Back</h1>", unsafe_allow_html=True)
     st.sidebar.title("INPUT DATA")
     if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
         page3()
