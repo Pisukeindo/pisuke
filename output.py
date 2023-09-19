@@ -5,11 +5,9 @@ import pandas as pd
 import re
 from datetime import datetime
 
-# URL Google Apps Script yang menghasilkan data JSON
-google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
 
 def laporan_suplier():
-    response = requests.get(google_apps_script_url, params={"sheet": "suplier"})
+    response = requests.get("https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec", params={"sheet": "suplier"})
     if response.status_code == 200:
         data = response.json()
         return data
@@ -17,7 +15,7 @@ def laporan_suplier():
         return None
 
 def laporan_qc():
-    response = requests.get(google_apps_script_url, params={"sheet": "qc"})
+    response = requests.get("https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec", params={"sheet": "qc"})
     if response.status_code == 200:
         data = response.json()
         return data
@@ -25,7 +23,7 @@ def laporan_qc():
         return None
 
 def laporan_penjualan_harian():
-    response = requests.get(google_apps_script_url, params={"sheet": "penjualan_harian"})
+    response = requests.get("https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec", params={"sheet": "penjualan_harian"})
     if response.status_code == 200:
         data = response.json()
         return data
