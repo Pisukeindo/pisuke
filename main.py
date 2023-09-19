@@ -15,10 +15,7 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    st.sidebar.title("MENU")
-
-    # Submenu "INPUT DATA"
-    st.sidebar.subheader("INPUT DATA")
+    st.sidebar.title("INPUT DATA")
     if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
         page3()
     if st.sidebar.button("Quality Control", key="qc_button"):
@@ -30,8 +27,7 @@ else:
     if st.sidebar.button("Bahan Baku Harian", key="bahan_baku_harian_button"):
         page5()
 
-    # Submenu "LAPORAN"
-    st.sidebar.subheader("LAPORAN")
+    st.sidebar.title("LAPORAN")
     if st.sidebar.button("Laporan QC", key="laporan_qc_button"):
         st.title("Laporan Quality Control")
         laporan("qc")
