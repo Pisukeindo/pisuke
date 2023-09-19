@@ -3,7 +3,7 @@ import streamlit as st
 from login import login
 from suplier import page1
 from quality_control import page2
-
+from penjualan_harian import page3
 # Inisialisasi status login
 if "username" not in st.session_state:
     st.session_state.username = None
@@ -12,11 +12,13 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control"])
+    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control", "Penjualan Harian"])
     if selected_page == "Dashboard":
         st.write("Ini adalah halaman Dashboard.")
     elif selected_page == "Suplier":
         page1() 
     elif selected_page == "Quality Control":
         page2() 
+    elif selected_page == "Penjualan Harian":
+        page3() 
 
