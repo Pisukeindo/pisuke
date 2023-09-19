@@ -2,6 +2,17 @@ import streamlit as st
 import requests
 
 def page3():
+
+    def format_rupiah(angka):
+        angka_str = str(angka)
+        ribuan = ""
+        n = len(angka_str)
+        for i, digit in enumerate(angka_str[::-1]):
+            ribuan = digit + ribuan
+            if (i + 1) % 3 == 0 and i != n - 1:
+                ribuan = "." + ribuan
+        return "Total Pendapatan Hari ini: Rp " + ribuan
+        
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbziM5KXcJV20k5gSC8GbvTW1oj3muhc9abd_XQflBV8rgG0MEKo-ekvuqRxCt-3wk0Z/exec"
     
@@ -14,6 +25,8 @@ def page3():
     penjualan_pisang_aroma = st.number_input("Penjualan Pisang Aroma", min_value=0)
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
     total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
+    jumlah_rupiah = format_rupiah(total_pendapatan)
+    st.write(f"{jumlah_rupiah}")
     
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
