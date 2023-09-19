@@ -21,13 +21,11 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = st.number_input("Jumlah (Rupiah)", min_value=0, format="%.0f")
-    jumlah_rupiah = format_rupiah(jumlah)
-    st.write(f"Jumlah: {jumlah_rupiah}")
+    jumlah = st.number_input("Jumlah (Rupiah)", min_value=0, format="%.0f")  # Perubahan format string di sini
     keterangan = st.text_input("Keterangan")
 
     # Mengubah jumlah menjadi format Rupiah
-    
+    jumlah_rupiah = format_rupiah(jumlah)
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
@@ -40,8 +38,6 @@ def page7():
             st.success("Data berhasil dikirim!")
         else:
             st.error("Terjadi kesalahan saat mengirim data.")
-
-    
 
 if __name__ == "__main__":
     page7()
