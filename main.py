@@ -1,6 +1,7 @@
 # main.py
 import streamlit as st
 from login import login
+from halaman import suplier
 from suplier import page1
 
 # Inisialisasi status login
