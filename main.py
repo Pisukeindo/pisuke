@@ -1,6 +1,5 @@
 import streamlit as st
 from login_page import login
-from main_page import main
 from data_page import input_data, output_data
 
 st.sidebar.title("Menu")
