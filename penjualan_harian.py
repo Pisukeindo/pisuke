@@ -7,7 +7,6 @@ def page3():
     
     # Tampilan Streamlit
     st.title("PENJUALAN HARIAN")
-    st.write("Masukkan data:")
     
     # Kolom input
     tanggal = st.date_input("Tanggal")
