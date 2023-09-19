@@ -1,13 +1,12 @@
 import streamlit as st
 import requests
 
-def page_1():
+def page5():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbw9IFGsHreAqh4qQiRuGnBk_D0G32d3XfhjZjYY5xW_lrUewF3A3-YFbo_U7Kzsi4dw/exec"
 
     # Tampilan Streamlit
-    st.title("PEMBELIAN BAHAN BAKU HARIAN")
-    st.write("Masukkan Data:")
+    st.title("BAHAN BAKU HARIAN")
 
     # Kolom input
     tanggal = st.date_input("Tanggal")
@@ -41,4 +40,4 @@ def page_1():
             st.error("Terjadi kesalahan saat mengirim data.")
 
 if __name__ == "__main__":
-    bahan_baku_harian()
+   page5()
