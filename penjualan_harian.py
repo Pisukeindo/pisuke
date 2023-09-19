@@ -22,6 +22,7 @@ def page3():
     # Kolom input
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
+    outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
     penjualan_pisang_aroma = st.number_input("Penjualan Pisang Aroma", min_value=0)
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
     total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
@@ -30,7 +31,7 @@ def page3():
     
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?tanggal={tanggal_str}&penjualan_pisang_aroma={penjualan_pisang_aroma}&penjualan_cheese_roll={penjualan_cheese_roll}&total_pendapatan={total_pendapatan}"
+        url = f"{apps_script_url}?tanggal={tanggal_str}&outlet={outlet}&penjualan_pisang_aroma={penjualan_pisang_aroma}&penjualan_cheese_roll={penjualan_cheese_roll}&total_pendapatan={total_pendapatan}"
     
         # Mengirim permintaan HTTP GET ke Apps Script
         response = requests.get(url)
