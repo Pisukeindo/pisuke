@@ -25,7 +25,7 @@ def page3():
     penjualan_pisang_aroma = st.number_input("Penjualan Pisang Aroma", min_value=0)
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
     total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
-    st.write(total_pendapatan)
+    jumlah_rupiah = format_rupiah(total_pendapatan)
     st.write(f"{jumlah_rupiah}")
     
     if st.button("Kirim Data"):
