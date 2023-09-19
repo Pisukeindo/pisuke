@@ -15,24 +15,41 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
+    st.sidebar.title("MENU")
+
     # Submenu "INPUT DATA"
-    st.sidebar.header("INPUT DATA")
-    if st.sidebar.subheader("Penjualan Harian"):
+    st.sidebar.subheader("INPUT DATA")
+    if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
         page3()
-    if st.sidebar.button("Quality Control"):
+    if st.sidebar.button("Quality Control", key="qc_button"):
         page2()
-    if st.sidebar.button("Suplier"):
+    if st.sidebar.button("Suplier", key="suplier_button"):
         page1()
-    if st.sidebar.button("Pertambahan Aset"):
+    if st.sidebar.button("Pertambahan Aset", key="pertambahan_aset_button"):
         page4()
-    if st.sidebar.button("Bahan Baku Harian"):
+    if st.sidebar.button("Bahan Baku Harian", key="bahan_baku_harian_button"):
         page5()
 
     # Submenu "LAPORAN"
     st.sidebar.subheader("LAPORAN")
-    if st.sidebar.button("Laporan QC"):
+    if st.sidebar.button("Laporan QC", key="laporan_qc_button"):
         st.title("Laporan Quality Control")
         laporan("qc")
-    if st.sidebar.button("Laporan Penjualan"):
+    if st.sidebar.button("Laporan Penjualan", key="laporan_penjualan_button"):
         st.title("Laporan Penjualan Harian")
         laporan("penjualan_harian")
+
+# Tambahkan CSS untuk menghilangkan persegi di sekitar tombol
+st.markdown(
+    """
+    <style>
+    .stButton>button {
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        padding: 0;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
