@@ -21,7 +21,7 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = st.number_input("Jumlah", min_value=0)
+    jumlah = st.number_input(f"Jumlah: {jumlah_rupiah}")
     keterangan = st.text_input("Keterangan")
 
     # Mengubah jumlah menjadi format Rupiah
