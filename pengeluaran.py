@@ -11,8 +11,9 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    keterangan = st.text_input("Keterangan")
     jumlah = st.number_input("Jumlah", min_value=0)
+    keterangan = st.text_input("Keterangan")
+    
     
 
     if st.button("Kirim Data"):
