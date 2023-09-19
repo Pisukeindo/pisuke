@@ -4,6 +4,7 @@ from penjualan_harian import page2
 from pertambahan_aset import page3
 from quality_control import page4
 from suplier import page5
+from  output import output
 
 def db():
     # Sidebar dengan pilihan terbaris vertikal
@@ -23,6 +24,6 @@ def db():
     if st.sidebar.button("Halaman 4"):
         page4()
     if st.sidebar.button("Halaman 5"):
-        page5()
+        output()
 
 
