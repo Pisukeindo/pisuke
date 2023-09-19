@@ -15,7 +15,13 @@ def format_tanggal(tanggal):
         tanggal_formatted = tanggal_obj.strftime('%y-%m-%d')
         return tanggal_formatted
     except Exception as e:
-        return tanggal  # Kembalikan tanggal asli jika ada kesalahan
+        # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
+        try:
+            tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
+            tanggal_formatted = tanggal_obj.strftime('%y-%m-%d')
+            return tanggal_formatted
+        except Exception as e:
+            return tanggal  # Kembalikan tanggal asli jika ada kesalahan
 
 def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
