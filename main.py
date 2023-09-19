@@ -16,13 +16,13 @@ if st.session_state.username is None:
     login()
 else:
     selected_menu = st.sidebar.radio(
-        "Pilih Menu:",
+        "MENU:",
         ["Input Data", "Laporan"]
     )
 
     if selected_menu == "Input Data":
         selected_page = st.sidebar.radio(
-            "Pilih Halaman:",
+            "Input Data:",
             ["Suplier", "Quality Control"]
         )
 
@@ -33,7 +33,7 @@ else:
     
     elif selected_menu == "Laporan":
         selected_laporan = st.sidebar.radio(
-            "Pilih Laporan:",
+            "Laporan:",
             ["Laporan QC", "Laporan Suplier"]  # Ganti dengan nama laporan yang sesuai
         )
 
