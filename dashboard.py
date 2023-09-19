@@ -8,13 +8,21 @@ from suplier import page5
 def db():
     # Sidebar dengan pilihan terbaris vertikal
     st.sidebar.title("Menu Navigasi")
-    selected_page = st.sidebar.selectbox("Pilih Halaman", ["Halaman 1", "Halaman 2", "Halaman 3"])  # Gantilah dengan nama-nama halaman Anda
-
-    # Tambahkan logika untuk masing-masing halaman di sini
-    if selected_page == "Halaman 1":
+    
+    # Menu Input
+    st.sidebar.header("Input")
+    if st.sidebar.button("Halaman 1"):
         page1()
-    elif selected_page == "Halaman 2":
+    if st.sidebar.button("Halaman 2"):
         page2()
-    elif selected_page == "Halaman 3":
+    if st.sidebar.button("Halaman 3"):
         page3()
+    
+    # Menu Output
+    st.sidebar.header("Output")
+    if st.sidebar.button("Halaman 4"):
+        page4()
+    if st.sidebar.button("Halaman 5"):
+        page5()
+
 
