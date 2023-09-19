@@ -21,9 +21,9 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = int(st.number_input(f"Jumlah: {jumlah_rupiah}", min_value=0))  # Konversi ke int untuk menghilangkan desimal
+    jumlah = int(st.number_input("Jumlah", min_value=0))  # Konversi ke int untuk menghilangkan desimal
     jumlah_rupiah = format_rupiah(jumlah)
-    st.write(""
+    st.write(f"Jumlah: {jumlah_rupiah}")
     keterangan = st.text_input("Keterangan")
 
    
