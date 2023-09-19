@@ -23,13 +23,19 @@ else:
     if selected_menu == "Input Data":
         selected_page = st.sidebar.radio(
             "Input Data:",
-            ["Suplier", "Quality Control"]
+            ["Suplier", "Quality Control", "Penjualan Harian", "Pertambahan Aset", "Bahan Baku Harian"]
         )
 
         if selected_page == "Suplier":
             page1()
         elif selected_page == "Quality Control":
             page2()
+        elif selected_page == "Penjualan Harian":
+            page3()
+        elif selected_page == "Pertambahan Aset":
+            page4()
+        elif selected_page == "Bahan Baku Harian":
+            page5()
     
     elif selected_menu == "Laporan":
         selected_laporan = st.sidebar.radio(
