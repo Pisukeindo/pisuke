@@ -15,8 +15,24 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_page = st.sidebar.radio("Pilih Halaman:", ["Dashboard", "tes"], format_func=lambda x: "")
+    selected_page = st.sidebar.radio(
+        "Pilih Halaman:",
+        ["Dashboard", "tes"],
+    )
+
     if selected_page == "Dashboard":
-      page1()
+        page1()
     elif selected_page == "tes":
-      page2()
+        page2()
+
+# Tambahkan CSS untuk menghilangkan bullet
+st.markdown(
+    """
+    <style>
+    .streamlit-radio-container input[type="radio"] + label::before {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
