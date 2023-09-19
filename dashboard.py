@@ -1,4 +1,9 @@
 import streamlit as st
+from bahan_baku_harian import page1
+from penjualan_harian import page2
+from pertambahan_aset import page3
+from quality_control import page4
+from suplier import page5
 
 def db():
     # Sidebar dengan pilihan terbaris vertikal
@@ -10,8 +15,8 @@ def db():
 
     # Tambahkan logika untuk masing-masing halaman di sini
     if selected_page == "Halaman 1":
-        st.write("Ini adalah Halaman 1.")
+        page1()
     elif selected_page == "Halaman 2":
-        st.write("Ini adalah Halaman 2.")
+        page2()
     elif selected_page == "Halaman 3":
-        st.write("Ini adalah Halaman 3.")
+        page3()
