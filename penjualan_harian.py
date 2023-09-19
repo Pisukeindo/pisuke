@@ -14,16 +14,21 @@ def page2():
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     penjualan_pisang_aroma = st.number_input("Penjualan Pisang Aroma", min_value=0)
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
-    total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
     
-    if st.button("Kirim Data"):
-        # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?tanggal={tanggal_str}&penjualan_pisang_aroma={penjualan_pisang_aroma}&penjualan_cheese_roll={penjualan_cheese_roll}&total_pendapatan={total_pendapatan}"
-    
-        # Mengirim permintaan HTTP GET ke Apps Script
-        response = requests.get(url)
+    # Pesan error jika ada input yang kosong
+    if not tanggal or not penjualan_pisang_aroma or not penjualan_cheese_roll:
+        st.error("Harap isi semua kolom sebelum mengirim data.")
+    else:
+        total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
+
+        if st.button("Kirim Data"):
+            # Membangun URL dengan parameter query string
+            url = f"{apps_script_url}?tanggal={tanggal_str}&penjualan_pisang_aroma={penjualan_pisang_aroma}&penjualan_cheese_roll={penjualan_cheese_roll}&total_pendapatan={total_pendapatan}"
         
-        if response.status_code == 200:
-            st.success("Data berhasil dikirim!")
-        else:
-            st.error("Terjadi kesalahan saat mengirim data.")
+            # Mengirim permintaan HTTP GET ke Apps Script
+            response = requests.get(url)
+            
+            if response.status_code == 200:
+                st.success("Data berhasil dikirim!")
+            else:
+                st.error("Terjadi kesalahan saat mengirim data.")
