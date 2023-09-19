@@ -17,26 +17,24 @@ if st.session_state.username is None:
 else:
     st.sidebar.title("MENU")
 
-    # Menu "INPUT DATA"
+    # Submenu "INPUT DATA"
     st.sidebar.subheader("INPUT DATA")
-    selected_page = st.sidebar.radio("", ["Penjualan Harian", "Quality Control", "Suplier", "Pertambahan Aset", "Bahan Baku Harian"])
-    if selected_page == "Penjualan Harian":
+    if st.sidebar.button("Penjualan Harian"):
         page3()
-    elif selected_page == "Quality Control":
+    if st.sidebar.button("Quality Control"):
         page2()
-    elif selected_page == "Suplier":
+    if st.sidebar.button("Suplier"):
         page1()
-    elif selected_page == "Pertambahan Aset":
+    if st.sidebar.button("Pertambahan Aset"):
         page4()
-    elif selected_page == "Bahan Baku Harian":
+    if st.sidebar.button("Bahan Baku Harian"):
         page5()
 
-    # Menu "LAPORAN"
+    # Submenu "LAPORAN"
     st.sidebar.subheader("LAPORAN")
-    selected_page = st.sidebar.radio("", ["Laporan QC", "Laporan Penjualan"])
-    if selected_page == "Laporan QC":
+    if st.sidebar.button("Laporan QC"):
         st.title("Laporan Quality Control")
         laporan("qc")
-    elif selected_page == "Laporan Penjualan":
+    if st.sidebar.button("Laporan Penjualan"):
         st.title("Laporan Penjualan Harian")
         laporan("penjualan_harian")
