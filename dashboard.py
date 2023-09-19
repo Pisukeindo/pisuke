@@ -8,7 +8,7 @@ from suplier import page5
 def db():
     # Sidebar dengan pilihan terbaris vertikal
     st.sidebar.title("Menu Navigasi")
-    selected_page = st.sidebar.["Halaman 1", "Halaman 2", "Halaman 3"]  # Gantilah dengan nama-nama halaman Anda
+    selected_pages = st.sidebar.checkbox("Pilih Halaman", ["Halaman 1", "Halaman 2", "Halaman 3"])
 
     # Tambahkan logika untuk masing-masing halaman di sini
     if selected_page == "Halaman 1":
