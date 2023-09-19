@@ -16,10 +16,11 @@ def page6():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbzNaLqTormZHk8lz9KEPiWxLUv1xp3-sxEXNELN8ejbNaWWT9O9j7EgkfgoBRfXp9NIvQ/exec"
     # Tampilan Streamlit
-    st.title("SUPLIER")
-    st.write("Masukkan Data:")
-
+    st.title("KARYAWAN")
+ 
     # Kolom input
+    tanggal = st.date_input("Tanggal")
+    tanggal_str = tanggal.strftime('%Y-%m-%d')
     nama = st.text_input("Nama")
     posisi = st.text_input("Posisi")
     kontak = st.text_input("Kontak")
@@ -28,8 +29,7 @@ def page6():
     jumlah_rupiah = format_rupiah(gaji)
     st.write(f"{jumlah_rupiah}")
     
-    tanggal = st.date_input("Tanggal")
-    tanggal_str = tanggal.strftime('%Y-%m-%d')
+    
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
