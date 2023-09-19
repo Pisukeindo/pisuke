@@ -7,6 +7,7 @@ from pertambahan_aset import page4
 from bahan_baku_harian import page5
 from output import laporan
 
+
 # Inisialisasi status login
 if "username" not in st.session_state:
     st.session_state.username = None
@@ -15,10 +16,10 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    st.sidebar.title("INPUT DATA")
-    if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
-        page3()
-    if st.sidebar.button("Quality Control", key="qc_button"):
-        page2()
-    if st.sidebar.button("Suplier", key="suplier_button"):
-        page1()
+    selected_page = st.sidebar.radio("Pilih Halaman:", ["Dashboard", "tes"])
+    if selected_page == "Dashboard":
+      page1()
+    elif selected_page == "Dashboard":
+      page2()
+  
+
