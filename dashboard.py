@@ -10,9 +10,6 @@ def db():
     st.sidebar.title("Menu Navigasi")
     selected_page = st.sidebar.radio("Pilih Halaman:", ["Halaman 1", "Halaman 2", "Halaman 3"])  # Gantilah dengan nama-nama halaman Anda
 
-    # Judul halaman
-    st.title("Dashboard")
-
     # Tambahkan logika untuk masing-masing halaman di sini
     if selected_page == "Halaman 1":
         page1()
