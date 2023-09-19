@@ -19,7 +19,7 @@ def page6():
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?nama={nama}&posisi={posisi}&kontak={kontak}&alamat={alamat}}&gaji={gaji}&tanggal={tanggal_str}"
+        url = f"{apps_script_url}?nama={nama}&posisi={posisi}&kontak={kontak}&alamat={alamat}&gaji={gaji}&tanggal={tanggal_str}"
 
         # Mengirim permintaan HTTP GET ke Apps Script
         response = requests.get(url)
