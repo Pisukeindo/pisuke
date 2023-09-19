@@ -86,4 +86,4 @@ def laporanqc():
 
 if __name__ == "__main__":
       # Ganti dengan lembar "QC" yang Anda inginkan
-    laporanqc(selected_sheet)
+    laporanqc()
