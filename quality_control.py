@@ -20,8 +20,7 @@ def page2():
     
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?tanggal={tanggal_str
-                                          }&jumlah_pisang_aroma={jumlah_pisang_aroma}&keterangan_pisang_aroma={keterangan_pisang_aroma}&jumlah_cheese_roll={jumlah_cheese_roll}&keterangan_cheese_roll={keterangan_cheese_roll}"
+        url = f"{apps_script_url}?tanggal={tanggal_str}&jumlah_pisang_aroma={jumlah_pisang_aroma}&keterangan_pisang_aroma={keterangan_pisang_aroma}&jumlah_cheese_roll={jumlah_cheese_roll}&keterangan_cheese_roll={keterangan_cheese_roll}"
     
         # Mengirim permintaan HTTP GET ke Apps Script
         response = requests.get(url)
