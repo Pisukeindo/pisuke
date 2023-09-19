@@ -1,3 +1,4 @@
+# main.py
 import streamlit as st
 import requests
 import pandas as pd
@@ -7,22 +8,44 @@ from datetime import datetime
 # URL Google Apps Script yang menghasilkan data JSON
 google_apps_script_url = "https://script.google.com/macros/s/AKfycby7lmAC4eXZQVBhNbcjz2eP_t09PE5jVV5Qnl62ovTS_tpuZg7DTBNjERmZjL2-0vtI/exec"
 
+def laporan_suplier():
+    response = requests.get(google_apps_script_url, params={"sheet": "suplier"})
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
+
+def laporan_qc():
+    response = requests.get(google_apps_script_url, params={"sheet": "qc"})
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
+
+def laporan_penjualan_harian():
+    response = requests.get(google_apps_script_url, params={"sheet": "penjualan_harian"})
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
+
 def main():
     st.title("Aplikasi Streamlit untuk Menampilkan Data Google Spreadsheet")
 
     # Buat menu dropdown untuk memilih lembar
     selected_sheet = st.selectbox("Pilih Lembar:", ["suplier", "qc", "penjualan_harian"])
 
-    # Fungsi untuk mengambil data dari Google Apps Script
-    def get_data_from_google_apps_script(selected_sheet):
-        response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        else:
-            return None
-
-    data = get_data_from_google_apps_script(selected_sheet)
+    if selected_sheet == "suplier":
+        data = laporan_suplier()
+    elif selected_sheet == "qc":
+        data = laporan_qc()
+    elif selected_sheet == "penjualan_harian":
+        data = laporan_penjualan_harian()
+    else:
+        data = None
 
     if data is not None:
         for sheet_data in data:
