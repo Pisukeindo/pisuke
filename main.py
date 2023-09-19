@@ -16,9 +16,9 @@ if st.session_state.username is None:
     login()
 else:
     st.sidebar.title("INPUT DATA")
-    if st.sidebar.button("Penjualan Harian", key="penjualan_harian_button"):
+    if st.sidebar.button("Penjualan Harian"):
         page3()
-    if st.sidebar.button("Quality Control", key="qc_button"):
+    if st.sidebar.button("Quality Control"):
         page2()
    
 
