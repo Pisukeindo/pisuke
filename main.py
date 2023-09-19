@@ -15,24 +15,4 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    st.sidebar.title("INPUT DATA")
-    if st.sidebar.button("Penjualan Harian"):
-        page3()
-    if st.sidebar.button("Quality Control"):
-        page2()
-   
-
-# Tambahkan CSS untuk menghilangkan persegi di sekitar tombol
-st.markdown(
-    """
-    <style>
-    .stButton>button {
-        background-color: transparent;
-        border: none;
-        text-align: left;
-        padding: 0;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+    page1()
