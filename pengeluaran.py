@@ -10,8 +10,8 @@ def page7():
         for i, digit in enumerate(angka_str[::-1]):
             ribuan = digit + ribuan
             if (i + 1) % 3 == 0 and i != n - 1:
-                ribuan = "Pengeluaran: Rp" + ribuan
-        return "Rp " + ribuan
+                ribuan = "." + ribuan
+        return "Pengeluaran: Rp " + ribuan
 
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbxNLNOEH6spI2cGXRcufQ3sFKQUxgQf2F1QFrxtgXNwflEhuFdZy8iHzQM0yntI605t/exec"
