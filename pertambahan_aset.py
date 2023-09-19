@@ -3,8 +3,7 @@ import requests
 
 def page4():
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbySr1hTcrfebDYFzU3XOzPpYcJHnnk9HRx28JuwE_wArHdaWNdXBE8VIOrQKRT5_mII/exec"
-    # Tampilan Streamlit
+    apps_script_url = "https://script.google.com/macros/s/AKfycbwKswDrRauvewav1jJ3q5Cp9quz1nkZoLeM_xttRpSIip64lsl2-MPUc8virHge8LI/exec"
     st.title("PERTAMBAHAN ASET")
     st.write("Masukkan Data:")
     
