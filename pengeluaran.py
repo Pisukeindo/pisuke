@@ -7,7 +7,7 @@ def page7():
         angka_str = str(angka)
         ribuan = ""
         n = len(angka_str)
-        for i, digit in enumerate(angka_str):
+        for i, digit in enumerate(angka_str[::-1]):
             ribuan = digit + ribuan
             if (i + 1) % 3 == 0 and i != n - 1:
                 ribuan = "." + ribuan
@@ -22,13 +22,12 @@ def page7():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     sumber = st.text_input("Sumber")
-    jumlah = int(st.number_input("Jumlah (Rupiah)", min_value=0))  # Konversi ke int untuk menghilangkan desimal
-    jumlah_rupiah = format_rupiah(jumlah)
-    st.write(f"Rp {jumlah_rupiah}")
+    jumlah = int(st.number_input("Jumlah (Rupiah)", min_value=0))  
+    st.write(f"{jumlah_rupiah}")
     keterangan = st.text_input("Keterangan")
 
     # Mengubah jumlah menjadi format Rupiah dengan titik sebagai separator setiap 3 digit
-    
+    jumlah_rupiah = format_rupiah(jumlah)
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
@@ -44,3 +43,4 @@ def page7():
 
 if __name__ == "__main__":
     page7()
+
