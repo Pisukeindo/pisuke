@@ -13,6 +13,8 @@ if st.session_state.username is None:
     # Halaman login
     st.title("Halaman Login")
     login()  # Panggil fungsi login() untuk menampilkan halaman login
+    
+elif "username"  in st.session_state:
     st.experimental_rerun()
 else:
     # Halaman setelah login
