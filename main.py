@@ -12,8 +12,11 @@ if "username" not in st.session_state:
 if st.session_state.username is None:
     login()
 else:
-    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Halaman Lain"])
+    selected_page = st.sidebar.selectbox("Pilih Halaman:", ["Dashboard", "Suplier", "Quality Control"])
     if selected_page == "Dashboard":
         st.write("Ini adalah halaman Dashboard.")
-    elif selected_page == "Halaman Lain":
+    elif selected_page == "Suplier":
         page1() 
+    elif selected_page == "Quality Control":
+        page2() 
+
