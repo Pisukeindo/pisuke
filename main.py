@@ -62,8 +62,10 @@ else:
             laporan("qc")
         elif selected_laporan == "Laporan Suplier":
             laporan("suplier")
-        elif selected_laporan == "Data Karyawan":
+        elif selected_laporan == "Laporan Karyawan":
             laporan("karyawan")
+        elif selected_laporan == "Laporan Pertambahan Aset":
+            laporan("pertambahan_aset")
         elif selected_laporan == "Laporan Bahan Baku Harian":
             laporan("bahan_baku_harian")
         elif selected_laporan == "Laporan Stok Bahan Baku":
