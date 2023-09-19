@@ -3,8 +3,7 @@ import requests
 
 def page1():
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbzH7-HHXvyrNOakd-U3uoC_Qcp-MMvYS6zm4qhGSbcRFuc9sE9erAsI65hv_FLacfqTFw/exec"
-
+    apps_script_url = "https://script.google.com/macros/s/AKfycbwV9P5upUPCVd3mK4i3X8CngIxvoxHhrk_SwnWbqTAjkTHp25j9uTj3yCth6r8jtmcfQg/exec"
     # Tampilan Streamlit
     st.title("SUPLIER")
     st.write("Masukkan Data:")
