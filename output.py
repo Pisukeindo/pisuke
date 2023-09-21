@@ -51,7 +51,7 @@ def laporan(selected_sheet):
             if selected_sheet == sheet_name:
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Tanggal Masuk|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
+                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
@@ -68,10 +68,14 @@ def laporan(selected_sheet):
                     # Filter data berdasarkan tanggal yang dipilih
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
-                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                        tanggal_data = format_tanggal(tanggal_data_str)
-                        if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
-                            filtered_data.append(row)
+                        try:
+                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                            tanggal_data = format_tanggal(tanggal_data_str)
+                            if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
+                                filtered_data.append(row)
+                        except ValueError:
+                            # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
+                            pass
                 else:
                     # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
                     filtered_data = sheet_values
@@ -101,4 +105,5 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
