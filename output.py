@@ -32,15 +32,6 @@ def format_rupiah(angka):
         return angka  # Kembalikan angka asli jika ada kesalahan
 
 def laporan(selected_sheet):
-    # Tambahkan widget untuk memilih rentang tanggal jika bukan lembar "suplier"
-    if selected_sheet != "suplier":
-        st.title("Filter Data Berdasarkan Tanggal")
-        start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-        end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
-    else:
-        start_date = None
-        end_date = None
-
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -62,16 +53,11 @@ def laporan(selected_sheet):
                 headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
-                # Filter data berdasarkan rentang tanggal jika bukan lembar "suplier"
-                if start_date and end_date:
-                    filtered_data = [headers]
-                    for row in sheet_values[1:]:
-                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                        tanggal_data = format_tanggal(tanggal_data_str)
-                        if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
-                            filtered_data.append(row)
-                else:
-                    filtered_data = sheet_values
+                # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
+                for i, header in enumerate(headers):
+                    if header in kolom_tanggal_bulan_waktu:
+                        for j in range(1, len(sheet_values)):
+                            sheet_values[j][i] = format_tanggal(sheet_values[j][i])
 
                 # Kolom-kolom yang ingin diubah menjadi format Rupiah
                 kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
@@ -79,15 +65,15 @@ def laporan(selected_sheet):
                 # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
                 for i, header in enumerate(headers):
                     if header in kolom_rupiah:
-                        for j in range(1, len(filtered_data)):
-                            filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+                        for j in range(1, len(sheet_values)):
+                            sheet_values[j][i] = format_rupiah(float(sheet_values[j][i]))
 
                 # Konversi data menjadi format tabel HTML
                 table_html = "<table><tr>"
                 for header in headers:
                     table_html += f"<th>{header}</th>"
                 table_html += "</tr>"
-                for row in filtered_data[1:]:
+                for row in sheet_values[1:]:
                     table_html += "<tr>"
                     for cell in row:
                         table_html += f"<td>{cell}</td>"
@@ -98,4 +84,5 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
