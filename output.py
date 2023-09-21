@@ -3,35 +3,38 @@ import requests
 import re
 from datetime import datetime
 
-# URL Google Apps Script yang menghasilkan data JSON
-google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
 
-# Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
-def format_tanggal(tanggal):
-    try:
-        # Ubah string tanggal ke dalam objek datetime
-        tanggal_obj = datetime.fromisoformat(tanggal)
-        # Ubah format tanggal menjadi "yyyy-mm-dd"
-        tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
-        return tanggal_formatted
-    except Exception as e:
-        # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
+def laporan(selected_sheet):
+
+
+    # URL Google Apps Script yang menghasilkan data JSON
+    google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
+    
+    # Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
+    def format_tanggal(tanggal):
         try:
-            tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
+            # Ubah string tanggal ke dalam objek datetime
+            tanggal_obj = datetime.fromisoformat(tanggal)
+            # Ubah format tanggal menjadi "yyyy-mm-dd"
             tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
             return tanggal_formatted
         except Exception as e:
-            return tanggal  # Kembalikan tanggal asli jika ada kesalahan
-
-# Fungsi untuk mengubah angka menjadi format Rupiah
-def format_rupiah(angka):
-    try:
-        angka_str = "{:,.0f}".format(angka).replace(",", ".")
-        return f"Rp {angka_str}"
-    except Exception as e:
-        return angka  # Kembalikan angka asli jika ada kesalahan
-
-def laporan(selected_sheet):
+            # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
+            try:
+                tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
+                tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
+                return tanggal_formatted
+            except Exception as e:
+                return tanggal  # Kembalikan tanggal asli jika ada kesalahan
+    
+    # Fungsi untuk mengubah angka menjadi format Rupiah
+    def format_rupiah(angka):
+        try:
+            angka_str = "{:,.0f}".format(angka).replace(",", ".")
+            return f"Rp {angka_str}"
+        except Exception as e:
+            return angka  # Kembalikan angka asli jika ada kesalahan
+            
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
