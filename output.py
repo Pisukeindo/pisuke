@@ -57,110 +57,87 @@ def laporan(selected_sheet):
                 if kolom_tanggal_bulan_waktu:
                     st.title(f"Filter Data Berdasarkan Tanggal - Lembar {selected_sheet}")
 
-                    # Filter outlet hanya pada lembar "penjualan_harian"
-                    if selected_sheet == "penjualan_harian" :
+                    # Jika lembar adalah "penjualan_harian," tampilkan filter Outlet
+                    if selected_sheet == "penjualan_harian":
                         # Tampilkan pilihan Outlet (Pogung, Pandega Mixue, atau Pandega Massiva)
                         selected_outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
-
-                        # Cari tanggal terlama dan terbaru dalam data
-                        all_dates = [format_tanggal(row[headers.index("Tanggal")]) for row in sheet_values[1:]]
-                        start_date = min(all_dates)
-                        end_date = max(all_dates)
-
-                        # Konversi tanggal terlama dan terbaru ke objek datetime
-                        start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
-                        end_date_obj = datetime.strptime(end_date, "%Y-%m-%d")
-
-                        # Input tanggal awal dengan validasi rentang waktu
-                        selected_start_date = st.date_input("Pilih Tanggal Awal", start_date_obj, min_value=start_date_obj, max_value=end_date_obj)
-
-                        # Input tanggal akhir dengan validasi rentang waktu
-                        selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
-
-                        # Tombol delete filter
-                        if selected_sheet not in ["suplier", "karyawan"]:
-                            st.button("Hapus Filter"):
-                             selected_outlet = None
-                             selected_start_date = start_date_obj
-                             selected_end_date = end_date_obj
-
-                        # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
-                        start_date = selected_start_date.strftime('%Y-%m-%d')
-                        end_date = selected_end_date.strftime('%Y-%m-%d')
-
-                        # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
-                        for i, header in enumerate(headers):
-                            if header in kolom_tanggal_bulan_waktu:
-                                for j in range(1, len(sheet_values)):
-                                    sheet_values[j][i] = format_tanggal(sheet_values[j][i])
-
-                        # Filter data berdasarkan tanggal, outlet, dan lembar yang dipilih
-                        filtered_data = [headers]
-                        for row in sheet_values[1:]:
-                            try:
-                                tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                                tanggal_data = format_tanggal(tanggal_data_str)
-                                outlet_data = row[headers.index("Outlet")]  # Ganti "Outlet" dengan nama kolom outlet Anda
-                                if start_date <= tanggal_data <= end_date:
-                                    if selected_outlet is None or outlet_data == selected_outlet:
-                                        filtered_data.append(row)
-                            except ValueError:
-                                # Jika kolom "Tanggal" atau "Outlet" tidak ada dalam data, abaikan baris ini
-                                pass
                     else:
-                        # Jika lembar bukan "penjualan_harian", tidak perlu filter outlet
-                        filtered_data = sheet_values
+                        selected_outlet = None
 
-                    # Kolom-kolom yang ingin diubah menjadi format Rupiah
-                    kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
+                    # Cari tanggal terlama dan terbaru dalam data
+                    all_dates = [format_tanggal(row[headers.index("Tanggal")]) for row in sheet_values[1:]]
+                    start_date = min(all_dates)
+                    end_date = max(all_dates)
 
-                    # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
+                    # Konversi tanggal terlama dan terbaru ke objek datetime
+                    start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
+                    end_date_obj = datetime.strptime(end_date, "%Y-%m-%d")
+
+                    # Input tanggal awal dengan validasi rentang waktu
+                    selected_start_date = st.date_input("Pilih Tanggal Awal", start_date_obj, min_value=start_date_obj, max_value=end_date_obj)
+
+                    # Input tanggal akhir dengan validasi rentang waktu
+                    selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
+
+                    # Tombol delete filter
+                    if st.button("Hapus Filter"):
+                        selected_outlet = None
+                        selected_start_date = start_date_obj
+                        selected_end_date = end_date_obj
+
+                    # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
+                    start_date = selected_start_date.strftime('%Y-%m-%d')
+                    end_date = selected_end_date.strftime('%Y-%m-%d')
+
+                    # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                     for i, header in enumerate(headers):
-                        if header in kolom_rupiah:
-                            for j in range(1, len(filtered_data)):
-                                filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+                        if header in kolom_tanggal_bulan_waktu:
+                            for j in range(1, len(sheet_values)):
+                                sheet_values[j][i] = format_tanggal(sheet_values[j][i])
 
-                    # Konversi data menjadi format tabel HTML
-                    table_html = "<table><tr>"
-                    for header in headers:
-                        table_html += f"<th>{header}</th>"
-                    table_html += "</tr>"
-                    for row in filtered_data[1:]:
-                        table_html += "<tr>"
-                        for cell in row:
-                            table_html += f"<td>{cell}</td>"
-                        table_html += "</tr>"
-                    table_html += "</table>"
-
-                    # Tampilkan tabel HTML
-                    st.markdown(table_html, unsafe_allow_html=True)
+                    # Filter data berdasarkan tanggal, outlet, dan lembar yang dipilih
+                    filtered_data = [headers]
+                    for row in sheet_values[1:]:
+                        try:
+                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                            tanggal_data = format_tanggal(tanggal_data_str)
+                            if selected_sheet == "penjualan_harian":
+                                outlet_data = row[headers.index("Outlet")]  # Ganti "Outlet" dengan nama kolom outlet Anda
+                                if start_date <= tanggal_data <= end_date and outlet_data == selected_outlet:
+                                    filtered_data.append(row)
+                            else:
+                                if start_date <= tanggal_data <= end_date:
+                                    filtered_data.append(row)
+                        except ValueError:
+                            # Jika kolom "Tanggal" atau "Outlet" tidak ada dalam data, abaikan baris ini
+                            pass
                 else:
                     # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
                     filtered_data = sheet_values
 
-                    # Kolom-kolom yang ingin diubah menjadi format Rupiah
-                    kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
+                # Kolom-kolom yang ingin diubah menjadi format Rupiah
+                kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
 
-                    # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
-                    for i, header in enumerate(headers):
-                        if header in kolom_rupiah:
-                            for j in range(1, len(filtered_data)):
-                                filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+                # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
+                for i, header in enumerate(headers):
+                    if header in kolom_rupiah:
+                        for j in range(1, len(filtered_data)):
+                            filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
 
-                    # Konversi data menjadi format tabel HTML
-                    table_html = "<table><tr>"
-                    for header in headers:
-                        table_html += f"<th>{header}</th>"
+                # Konversi data menjadi format tabel HTML
+                table_html = "<table><tr>"
+                for header in headers:
+                    table_html += f"<th>{header}</th>"
+                table_html += "</tr>"
+                for row in filtered_data[1:]:
+                    table_html += "<tr>"
+                    for cell in row:
+                        table_html += f"<td>{cell}</td>"
                     table_html += "</tr>"
-                    for row in filtered_data[1:]:
-                        table_html += "<tr>"
-                        for cell in row:
-                            table_html += f"<td>{cell}</td>"
-                        table_html += "</tr>"
-                    table_html += "</table>"
+                table_html += "</table>"
 
-                    # Tampilkan tabel HTML
-                    st.markdown(table_html, unsafe_allow_html=True)
+                # Tampilkan tabel HTML
+                st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian", "suplier", "karyawan"])  # Ganti dengan lembar yang Anda inginkan
