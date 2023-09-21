@@ -68,8 +68,8 @@ def laporan(selected_sheet):
 
                     # Tampilkan filter waktu dengan tanggal awal dan akhir dari data terlama dan terbaru
                     st.title("Filter Data Berdasarkan Tanggal")
-                    start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama)
-                    end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru)
+                    start_date = st.date_input("Pilih Tanggal Awal", min_value=tanggal_terlama, max_value=tanggal_terbaru, value=tanggal_terlama)
+                    end_date = st.date_input("Pilih Tanggal Akhir", min_value=tanggal_terlama, max_value=tanggal_terbaru, value=tanggal_terbaru)
 
                 # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                 for i, header in enumerate(headers):
