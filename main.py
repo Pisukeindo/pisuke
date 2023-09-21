@@ -73,7 +73,7 @@ else:
             laporan("bahan_baku_harian")
         elif selected_laporan == "Laporan Stok Bahan Baku":
             laporan("stok_bahan_baku")
-        elif selected_laporan == "Laporan pengeluaran Harian":
+        elif selected_laporan == "Laporan Pengeluaran Harian":
             laporan("pengeluaran_harian")
         elif selected_laporan == "Laporan Penjualan Harian":
             laporan("penjualan_harian")
