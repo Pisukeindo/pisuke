@@ -53,6 +53,12 @@ def laporan(selected_sheet):
                 headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
+                # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
+                for i, header in enumerate(headers):
+                    if header in kolom_tanggal_bulan_waktu:
+                        for j in range(1, len(sheet_values)):
+                            sheet_values[j][i] = format_tanggal(sheet_values[j][i])
+
                 # Kolom-kolom yang ingin diubah menjadi format Rupiah
                 kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
 
@@ -80,4 +86,3 @@ def laporan(selected_sheet):
 if __name__ == "__main__":
     selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
-
