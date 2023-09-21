@@ -49,15 +49,47 @@ def laporan(selected_sheet):
             sheet_values = sheet_data['data']
 
             if selected_sheet == sheet_name:
-                # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
+                # Temukan tanggal terlama dan tanggal terbaru dalam data
+                tanggal_terlama = None
+                tanggal_terbaru = None
+
+                # Inisialisasi headers di luar blok perulangan
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Tanggal Masuk|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
+
+                try:
+                    # Cari indeks kolom "Tanggal" dalam headers
+                    tanggal_index = headers.index("Tanggal")  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+
+                    for row in sheet_values[1:]:
+                        try:
+                            tanggal_data_str = row[tanggal_index]
+                            tanggal_data = datetime.strptime(tanggal_data_str, '%Y-%m-%d')
+                            if tanggal_terlama is None or tanggal_data < tanggal_terlama:
+                                tanggal_terlama = tanggal_data
+                            if tanggal_terbaru is None or tanggal_data > tanggal_terbaru:
+                                tanggal_terbaru = tanggal_data
+                        except ValueError:
+                            pass
+
+                    # Set tanggal awal dan akhir dengan tanggal terlama dan tanggal terbaru
+                    if tanggal_terlama and tanggal_terbaru:
+                        start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama.date())
+                        end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru.date())
+                    else:
+                        # Jika tidak ada tanggal dalam data, beri nilai default hari ini
+                        start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+                        end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+                except ValueError:
+                    st.warning("Kolom 'Tanggal' tidak ditemukan dalam data.")
+                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+
+                # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
+                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
                     st.title("Filter Data Berdasarkan Tanggal")
-                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
 
                     # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                     for i, header in enumerate(headers):
@@ -69,7 +101,7 @@ def laporan(selected_sheet):
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
                         try:
-                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                            tanggal_data_str = row[tanggal_index]
                             tanggal_data = format_tanggal(tanggal_data_str)
                             if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
                                 filtered_data.append(row)
@@ -105,5 +137,5 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+    selected_sheet = "pertambahan_aset"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
-    
