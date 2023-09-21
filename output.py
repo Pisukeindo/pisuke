@@ -34,36 +34,18 @@ def get_data_from_google_apps_script(selected_sheet):
     else:
         return None
 
-# Fungsi filter waktu
-def filter_waktu(sheet_values, start_date, end_date):
-    filtered_data = []
-    headers = sheet_values[0]
-    kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
-
-    for row in sheet_values[1:]:
-        try:
-            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-            tanggal_data = format_tanggal(tanggal_data_str)
-            if start_date <= tanggal_data <= end_date:
-                filtered_data.append(row)
-        except (ValueError, TypeError):
-            # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
-            pass
-
-    return filtered_data
-
-# Fungsi filter outlet
-def filter_outlet(sheet_values, selected_outlet):
+# Fungsi filter data berdasarkan kolom dan nilai
+def filter_data(sheet_values, filter_column, filter_value):
     filtered_data = []
     headers = sheet_values[0]
 
     for row in sheet_values[1:]:
         try:
-            outlet_data = row[headers.index("Outlet")]  # Ganti "Outlet" dengan nama kolom outlet Anda
-            if outlet_data == selected_outlet:
+            filter_data = row[headers.index(filter_column)]
+            if filter_data == filter_value:
                 filtered_data.append(row)
         except (ValueError, TypeError):
-            # Jika kolom "Outlet" tidak ada dalam data, abaikan baris ini
+            # Jika kolom tidak ada dalam data, abaikan baris ini
             pass
 
     return filtered_data
@@ -118,9 +100,10 @@ def laporan(selected_sheet):
                     end_date = selected_end_date.strftime('%Y-%m-%d')
 
                     # Filter data berdasarkan tanggal, outlet, dan lembar yang dipilih
-                    filtered_data = filter_waktu(sheet_values, start_date, end_date)
+                    filtered_data = filter_data(sheet_values, "Tanggal", start_date)
+                    filtered_data = filter_data(filtered_data, "Tanggal", end_date)
                     if selected_sheet == "penjualan_harian" and selected_outlet:
-                        filtered_data = filter_outlet(filtered_data, selected_outlet)
+                        filtered_data = filter_data(filtered_data, "Outlet", selected_outlet)
                 else:
                     # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
                     filtered_data = sheet_values
