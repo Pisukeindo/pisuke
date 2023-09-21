@@ -58,7 +58,7 @@ def laporan(selected_sheet):
                     st.title(f"Filter Data Berdasarkan Tanggal - Lembar {selected_sheet}")
 
                     # Filter outlet hanya pada lembar "penjualan_harian"
-                    if selected_sheet == "penjualan_harian" or selected_sheet not in ["suplier", "karyawan"]:
+                    if selected_sheet == "penjualan_harian" :
                         # Tampilkan pilihan Outlet (Pogung, Pandega Mixue, atau Pandega Massiva)
                         selected_outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
 
@@ -78,10 +78,11 @@ def laporan(selected_sheet):
                         selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
 
                         # Tombol delete filter
-                        if st.button("Hapus Filter"):
-                            selected_outlet = None
-                            selected_start_date = start_date_obj
-                            selected_end_date = end_date_obj
+                        if selected_sheet not in ["suplier", "karyawan"]:
+                            st.button("Hapus Filter"):
+                             selected_outlet = None
+                             selected_start_date = start_date_obj
+                             selected_end_date = end_date_obj
 
                         # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
                         start_date = selected_start_date.strftime('%Y-%m-%d')
