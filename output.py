@@ -51,26 +51,30 @@ def laporan(selected_sheet):
             if selected_sheet == sheet_name:
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
+                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Tanggal Masuk|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
-                # Tambahkan filter waktu menggunakan widget Streamlit
-                st.title("Filter Data Berdasarkan Tanggal")
-                start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+                # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
+                if kolom_tanggal_bulan_waktu:
+                    st.title("Filter Data Berdasarkan Tanggal")
+                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
 
-                # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
-                for i, header in enumerate(headers):
-                    if header in kolom_tanggal_bulan_waktu:
-                        for j in range(1, len(sheet_values)):
-                            sheet_values[j][i] = format_tanggal(sheet_values[j][i])
+                    # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
+                    for i, header in enumerate(headers):
+                        if header in kolom_tanggal_bulan_waktu:
+                            for j in range(1, len(sheet_values)):
+                                sheet_values[j][i] = format_tanggal(sheet_values[j][i])
 
-                # Filter data berdasarkan tanggal yang dipilih
-                filtered_data = [headers]
-                for row in sheet_values[1:]:
-                    tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                    tanggal_data = format_tanggal(tanggal_data_str)
-                    if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
-                        filtered_data.append(row)
+                    # Filter data berdasarkan tanggal yang dipilih
+                    filtered_data = [headers]
+                    for row in sheet_values[1:]:
+                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                        tanggal_data = format_tanggal(tanggal_data_str)
+                        if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
+                            filtered_data.append(row)
+                else:
+                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
+                    filtered_data = sheet_values
 
                 # Kolom-kolom yang ingin diubah menjadi format Rupiah
                 kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
@@ -93,4 +97,8 @@ def laporan(selected_sheet):
                     table_html += "</tr>"
                 table_html += "</table>"
 
-                # Tampilkan
+                # Tampilkan tabel HTML
+                st.markdown(table_html, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    laporan(selected_sheet)
