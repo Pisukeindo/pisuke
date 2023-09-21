@@ -30,9 +30,8 @@ def format_rupiah(angka):
         angka_float = float(angka)
         angka_str = "{:,.0f}".format(angka_float).replace(",", ".")
         return f"Rp {angka_str}"
-    except (ValueError, TypeError) as e:
+    except (ValueError, TypeError):
         return angka  # Kembalikan angka asli jika ada kesalahan
-
 
 def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
@@ -69,7 +68,7 @@ def laporan(selected_sheet):
                 for i, header in enumerate(headers):
                     if header in kolom_rupiah:
                         for j in range(1, len(sheet_values)):
-                            sheet_values[j][i] = format_rupiah(float(sheet_values[j][i]))
+                            sheet_values[j][i] = format_rupiah(sheet_values[j][i])
 
                 # Konversi data menjadi format tabel HTML
                 table_html = "<table><tr>"
@@ -87,5 +86,6 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+    st.title("Laporan Data")
     selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
