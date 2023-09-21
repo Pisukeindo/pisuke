@@ -31,7 +31,7 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-def laporan(selected_sheet, selected_outlet):
+def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -55,7 +55,7 @@ def laporan(selected_sheet, selected_outlet):
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
-                    st.title("Filter Data Berdasarkan Tanggal dan Outlet")
+                    st.title(f"Filter Data Berdasarkan Tanggal - Lembar {selected_sheet}")
 
                     # Tampilkan pilihan Outlet (Pogung, Pandega Mixue, atau Pandega Massiva)
                     selected_outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
@@ -95,7 +95,7 @@ def laporan(selected_sheet, selected_outlet):
                             if start_date <= tanggal_data <= end_date and outlet_data == selected_outlet:
                                 filtered_data.append(row)
                         except ValueError:
-                            # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
+                            # Jika kolom "Tanggal" atau "Outlet" tidak ada dalam data, abaikan baris ini
                             pass
                 else:
                     # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
@@ -126,6 +126,5 @@ def laporan(selected_sheet, selected_outlet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = "penjualan_harian"  # Ganti dengan lembar yang Anda inginkan
-    selected_outlet = "Pogung"
-    laporan(selected_sheet, selected_outlet)
+    selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian"])  # Ganti dengan lembar yang Anda inginkan
+    laporan(selected_sheet)
