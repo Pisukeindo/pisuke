@@ -67,10 +67,14 @@ def laporan(selected_sheet):
                     end_date_obj = datetime.strptime(end_date, "%Y-%m-%d")
 
                     # Input tanggal awal dengan validasi rentang waktu
-                    selected_start_date = st.date_input("Pilih Rentang Tanggal", (start_date_obj, end_date_obj), min_value=start_date_obj, max_value=end_date_obj)
+                    selected_start_date = st.date_input("Pilih Tanggal Awal", start_date_obj, min_value=start_date_obj, max_value=end_date_obj)
 
-                    # Dapatkan tanggal awal dan akhir dari input
-                    start_date, end_date = selected_start_date
+                    # Input tanggal akhir dengan validasi rentang waktu
+                    selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
+
+                    # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
+                    start_date = selected_start_date.strftime('%Y-%m-%d')
+                    end_date = selected_end_date.strftime('%Y-%m-%d')
 
                     # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                     for i, header in enumerate(headers):
