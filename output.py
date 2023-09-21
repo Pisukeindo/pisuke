@@ -51,43 +51,42 @@ def laporan(selected_sheet):
             if selected_sheet == sheet_name:
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Tanggal Masuk|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
+                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
-                # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
-                if kolom_tanggal_bulan_waktu:
+                # Cari tanggal terlama dan terbaru dalam data lembar
+                if selected_sheet not in ["suplier", "karyawan"]:
+                    tanggal_terlama = datetime.today()
+                    tanggal_terbaru = datetime(1900, 1, 1)  # Inisialisasi dengan tanggal yang sangat tua
+                    for row in sheet_values[1:]:
+                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                        tanggal_data = format_tanggal(tanggal_data_str)
+                        tanggal_data_obj = datetime.strptime(tanggal_data, '%Y-%m-%d')
+                        if tanggal_data_obj < tanggal_terlama:
+                            tanggal_terlama = tanggal_data_obj
+                        if tanggal_data_obj > tanggal_terbaru:
+                            tanggal_terbaru = tanggal_data_obj
+
+                    # Tampilkan filter waktu dengan tanggal awal dan akhir dari data terlama dan terbaru
                     st.title("Filter Data Berdasarkan Tanggal")
-                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+                    start_date = st.date_input("Pilih Tanggal Awal", min_value=tanggal_terlama, max_value=tanggal_terbaru, value=tanggal_terlama)
+                    end_date = st.date_input("Pilih Tanggal Akhir", min_value=tanggal_terlama, max_value=tanggal_terbaru, value=tanggal_terbaru)
 
-                    # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
-                    for i, header in enumerate(headers):
-                        if header in kolom_tanggal_bulan_waktu:
-                            for j in range(1, len(sheet_values)):
-                                sheet_values[j][i] = format_tanggal(sheet_values[j][i])
+                # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
+                for i, header in enumerate(headers):
+                    if header in kolom_tanggal_bulan_waktu:
+                        for j in range(1, len(sheet_values)):
+                            sheet_values[j][i] = format_tanggal(sheet_values[j][i])
 
-                    # Filter data berdasarkan tanggal yang dipilih
+                # Filter data berdasarkan tanggal yang dipilih, tetapi hanya untuk lembar selain "suplier" dan "karyawan"
+                if selected_sheet not in ["suplier", "karyawan"]:
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
-                        try:
-                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                            tanggal_data = format_tanggal(tanggal_data_str)
-                            if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
-                                filtered_data.append(row)
-                        except ValueError:
-                            # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
-                            pass
+                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                        tanggal_data = format_tanggal(tanggal_data_str)
+                        if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
+                            filtered_data.append(row)
                 else:
-                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
                     filtered_data = sheet_values
-
-                # Kolom-kolom yang ingin diubah menjadi format Rupiah
-                kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
-
-                # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
-                for i, header in enumerate(headers):
-                    if header in kolom_rupiah:
-                        for j in range(1, len(filtered_data)):
-                            filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
 
                 # Konversi data menjadi format tabel HTML
                 table_html = "<table><tr>"
@@ -107,4 +106,3 @@ def laporan(selected_sheet):
 if __name__ == "__main__":
     selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
-    
