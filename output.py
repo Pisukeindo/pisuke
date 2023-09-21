@@ -125,4 +125,35 @@ def laporan(selected_sheet):
                     table_html += "</table>"
 
                     # Tampilkan tabel HTML
-                    st.markdown(table_html, unsafe_allow
+                    st.markdown(table_html, unsafe_allow_html=True)
+                else:
+                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
+                    filtered_data = sheet_values
+
+                    # Kolom-kolom yang ingin diubah menjadi format Rupiah
+                    kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
+
+                    # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
+                    for i, header in enumerate(headers):
+                        if header in kolom_rupiah:
+                            for j in range(1, len(filtered_data)):
+                                filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+
+                    # Konversi data menjadi format tabel HTML
+                    table_html = "<table><tr>"
+                    for header in headers:
+                        table_html += f"<th>{header}</th>"
+                    table_html += "</tr>"
+                    for row in filtered_data[1:]:
+                        table_html += "<tr>"
+                        for cell in row:
+                            table_html += f"<td>{cell}</td>"
+                        table_html += "</tr>"
+                    table_html += "</table>"
+
+                    # Tampilkan tabel HTML
+                    st.markdown(table_html, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian"])  # Ganti dengan lembar yang Anda inginkan
+    laporan(selected_sheet)
