@@ -31,7 +31,12 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-def laporan(selected_sheet, start_date, end_date):
+def laporan(selected_sheet):
+    # Tambahkan widget untuk memilih rentang tanggal
+    st.title("Filter Data Berdasarkan Tanggal")
+    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -86,11 +91,5 @@ def laporan(selected_sheet, start_date, end_date):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
-
-    # Tambahkan widget untuk memilih rentang tanggal
-    st.title("Filter Data Berdasarkan Tanggal")
-    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
-
-    laporan(selected_sheet, start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d'))
+    selected_sheet = "pengeluaran_harian"  # Ganti dengan lembar yang Anda inginkan
+    laporan(selected_sheet)
