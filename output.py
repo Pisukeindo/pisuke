@@ -49,6 +49,30 @@ def laporan(selected_sheet):
             sheet_values = sheet_data['data']
 
             if selected_sheet == sheet_name:
+                # Temukan tanggal terlama dan tanggal terbaru dalam data
+                tanggal_terlama = None
+                tanggal_terbaru = None
+
+                for row in sheet_values[1:]:
+                    try:
+                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                        tanggal_data = datetime.strptime(tanggal_data_str, '%Y-%m-%d')
+                        if tanggal_terlama is None or tanggal_data < tanggal_terlama:
+                            tanggal_terlama = tanggal_data
+                        if tanggal_terbaru is None or tanggal_data > tanggal_terbaru:
+                            tanggal_terbaru = tanggal_data
+                    except ValueError:
+                        pass
+
+                # Set tanggal awal dan akhir dengan tanggal terlama dan tanggal terbaru
+                if tanggal_terlama and tanggal_terbaru:
+                    start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama.date())
+                    end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru.date())
+                else:
+                    # Jika tidak ada tanggal dalam data, beri nilai default hari ini
+                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
@@ -56,8 +80,6 @@ def laporan(selected_sheet):
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
                     st.title("Filter Data Berdasarkan Tanggal")
-                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
 
                     # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                     for i, header in enumerate(headers):
