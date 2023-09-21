@@ -77,6 +77,12 @@ def laporan(selected_sheet):
                         # Input tanggal akhir dengan validasi rentang waktu
                         selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
 
+                        # Tombol delete filter
+                        if st.button("Hapus Filter"):
+                            selected_outlet = None
+                            selected_start_date = start_date_obj
+                            selected_end_date = end_date_obj
+
                         # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
                         start_date = selected_start_date.strftime('%Y-%m-%d')
                         end_date = selected_end_date.strftime('%Y-%m-%d')
@@ -94,8 +100,9 @@ def laporan(selected_sheet):
                                 tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
                                 tanggal_data = format_tanggal(tanggal_data_str)
                                 outlet_data = row[headers.index("Outlet")]  # Ganti "Outlet" dengan nama kolom outlet Anda
-                                if start_date <= tanggal_data <= end_date and outlet_data == selected_outlet:
-                                    filtered_data.append(row)
+                                if start_date <= tanggal_data <= end_date:
+                                    if selected_outlet is None or outlet_data == selected_outlet:
+                                        filtered_data.append(row)
                             except ValueError:
                                 # Jika kolom "Tanggal" atau "Outlet" tidak ada dalam data, abaikan baris ini
                                 pass
