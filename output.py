@@ -51,7 +51,7 @@ def laporan(selected_sheet):
             if selected_sheet == sheet_name:
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
+                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Tanggal Masuk|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
