@@ -31,7 +31,7 @@ def format_rupiah(angka):
     except Exception as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
 
-def laporan(selected_sheet):
+def laporan(selected_sheet, selected_outlet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -55,8 +55,11 @@ def laporan(selected_sheet):
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
-                    st.title("Filter Data Berdasarkan Tanggal")
-                    
+                    st.title("Filter Data Berdasarkan Tanggal dan Outlet")
+
+                    # Tampilkan pilihan Outlet (Pogung, Pandega Mixue, atau Pandega Massiva)
+                    selected_outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
+
                     # Cari tanggal terlama dan terbaru dalam data
                     all_dates = [format_tanggal(row[headers.index("Tanggal")]) for row in sheet_values[1:]]
                     start_date = min(all_dates)
@@ -82,45 +85,17 @@ def laporan(selected_sheet):
                             for j in range(1, len(sheet_values)):
                                 sheet_values[j][i] = format_tanggal(sheet_values[j][i])
 
-                    # Filter data berdasarkan tanggal yang dipilih
+                    # Filter data berdasarkan tanggal, outlet, dan lembar yang dipilih
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
                         try:
                             tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
                             tanggal_data = format_tanggal(tanggal_data_str)
-                            if start_date <= tanggal_data <= end_date:
+                            outlet_data = row[headers.index("Outlet")]  # Ganti "Outlet" dengan nama kolom outlet Anda
+                            if start_date <= tanggal_data <= end_date and outlet_data == selected_outlet:
                                 filtered_data.append(row)
                         except ValueError:
                             # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
                             pass
                 else:
-                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
-                    filtered_data = sheet_values
-
-                # Kolom-kolom yang ingin diubah menjadi format Rupiah
-                kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
-
-                # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
-                for i, header in enumerate(headers):
-                    if header in kolom_rupiah:
-                        for j in range(1, len(filtered_data)):
-                            filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
-
-                # Konversi data menjadi format tabel HTML
-                table_html = "<table><tr>"
-                for header in headers:
-                    table_html += f"<th>{header}</th>"
-                table_html += "</tr>"
-                for row in filtered_data[1:]:
-                    table_html += "<tr>"
-                    for cell in row:
-                        table_html += f"<td>{cell}</td>"
-                    table_html += "</tr>"
-                table_html += "</table>"
-
-                # Tampilkan tabel HTML
-                st.markdown(table_html, unsafe_allow_html=True)
-
-if __name__ == "__main__":
-    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
-    laporan(selected_sheet)
+                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan
