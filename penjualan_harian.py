@@ -14,7 +14,7 @@ def page3():
         return "Total Pendapatan: Rp " + ribuan
         
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbzKdrrSi5wjjN934uPw6oP448lwciG5Jp6W4UuD5bdOyA8qkC8m189EtAY0OT0M5CQY/exec"
+    apps_script_url = "https://script.google.com/macros/s/AKfycbz2nXCUxvTQ_9DD8g6_Pd-F52YFJRX0164k69Tcyh67UwAHeaicAlBdlWYalTzxd47C/exec"
     
     # Tampilan Streamlit
     st.title("PENJUALAN HARIAN")
