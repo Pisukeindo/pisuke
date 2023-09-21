@@ -26,10 +26,13 @@ def format_tanggal(tanggal):
 # Fungsi untuk mengubah angka menjadi format Rupiah
 def format_rupiah(angka):
     try:
-        angka_str = "{:,.0f}".format(angka).replace(",", ".")
+        # Cek apakah angka bisa diubah menjadi float
+        angka_float = float(angka)
+        angka_str = "{:,.0f}".format(angka_float).replace(",", ".")
         return f"Rp {angka_str}"
-    except Exception as e:
+    except (ValueError, TypeError) as e:
         return angka  # Kembalikan angka asli jika ada kesalahan
+
 
 def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
