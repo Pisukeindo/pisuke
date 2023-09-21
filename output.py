@@ -3,38 +3,35 @@ import requests
 import re
 from datetime import datetime
 
+# URL Google Apps Script yang menghasilkan data JSON
+google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
 
-def laporan(selected_sheet):
-
-
-    # URL Google Apps Script yang menghasilkan data JSON
-    google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
-    
-    # Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
-    def format_tanggal(tanggal):
+# Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
+def format_tanggal(tanggal):
+    try:
+        # Ubah string tanggal ke dalam objek datetime
+        tanggal_obj = datetime.fromisoformat(tanggal)
+        # Ubah format tanggal menjadi "yyyy-mm-dd"
+        tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
+        return tanggal_formatted
+    except Exception as e:
+        # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
         try:
-            # Ubah string tanggal ke dalam objek datetime
-            tanggal_obj = datetime.fromisoformat(tanggal)
-            # Ubah format tanggal menjadi "yyyy-mm-dd"
+            tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
             tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
             return tanggal_formatted
         except Exception as e:
-            # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
-            try:
-                tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
-                tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
-                return tanggal_formatted
-            except Exception as e:
-                return tanggal  # Kembalikan tanggal asli jika ada kesalahan
-    
-    # Fungsi untuk mengubah angka menjadi format Rupiah
-    def format_rupiah(angka):
-        try:
-            angka_str = "{:,.0f}".format(angka).replace(",", ".")
-            return f"Rp {angka_str}"
-        except Exception as e:
-            return angka  # Kembalikan angka asli jika ada kesalahan
-            
+            return tanggal  # Kembalikan tanggal asli jika ada kesalahan
+
+# Fungsi untuk mengubah angka menjadi format Rupiah
+def format_rupiah(angka):
+    try:
+        angka_str = "{:,.0f}".format(angka).replace(",", ".")
+        return f"Rp {angka_str}"
+    except Exception as e:
+        return angka  # Kembalikan angka asli jika ada kesalahan
+
+def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -56,28 +53,38 @@ def laporan(selected_sheet):
                 tanggal_terlama = None
                 tanggal_terbaru = None
 
-                for row in sheet_values[1:]:
-                    try:
-                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                        tanggal_data = datetime.strptime(tanggal_data_str, '%Y-%m-%d')
-                        if tanggal_terlama is None or tanggal_data < tanggal_terlama:
-                            tanggal_terlama = tanggal_data
-                        if tanggal_terbaru is None or tanggal_data > tanggal_terbaru:
-                            tanggal_terbaru = tanggal_data
-                    except ValueError:
-                        pass
+                # Inisialisasi headers di luar blok perulangan
+                headers = sheet_values[0]
 
-                # Set tanggal awal dan akhir dengan tanggal terlama dan tanggal terbaru
-                if tanggal_terlama and tanggal_terbaru:
-                    start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama.date())
-                    end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru.date())
-                else:
-                    # Jika tidak ada tanggal dalam data, beri nilai default hari ini
+                try:
+                    # Cari indeks kolom "Tanggal" dalam headers
+                    tanggal_index = headers.index("Tanggal")  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+
+                    for row in sheet_values[1:]:
+                        try:
+                            tanggal_data_str = row[tanggal_index]
+                            tanggal_data = datetime.strptime(tanggal_data_str, '%Y-%m-%d')
+                            if tanggal_terlama is None or tanggal_data < tanggal_terlama:
+                                tanggal_terlama = tanggal_data
+                            if tanggal_terbaru is None or tanggal_data > tanggal_terbaru:
+                                tanggal_terbaru = tanggal_data
+                        except ValueError:
+                            pass
+
+                    # Set tanggal awal dan akhir dengan tanggal terlama dan tanggal terbaru
+                    if tanggal_terlama and tanggal_terbaru:
+                        start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama.date())
+                        end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru.date())
+                    else:
+                        # Jika tidak ada tanggal dalam data, beri nilai default hari ini
+                        start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
+                        end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+                except ValueError:
+                    st.warning("Kolom 'Tanggal' tidak ditemukan dalam data.")
                     start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
                     end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
 
                 # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
-                headers = sheet_values[0]
                 kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
@@ -94,7 +101,7 @@ def laporan(selected_sheet):
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
                         try:
-                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                            tanggal_data_str = row[tanggal_index]
                             tanggal_data = format_tanggal(tanggal_data_str)
                             if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
                                 filtered_data.append(row)
@@ -130,5 +137,5 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
+    selected_sheet = "pertambahan_aset"  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
