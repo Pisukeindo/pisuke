@@ -58,7 +58,7 @@ def laporan(selected_sheet):
                     st.title(f"Filter Data Berdasarkan Tanggal - Lembar {selected_sheet}")
 
                     # Filter outlet hanya pada lembar "penjualan_harian"
-                    if selected_sheet == "penjualan_harian":
+                    if selected_sheet == "penjualan_harian" or selected_sheet not in ["suplier", "karyawan"]:
                         # Tampilkan pilihan Outlet (Pogung, Pandega Mixue, atau Pandega Massiva)
                         selected_outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
 
@@ -77,7 +77,11 @@ def laporan(selected_sheet):
                         # Input tanggal akhir dengan validasi rentang waktu
                         selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
 
-                      
+                        # Tombol delete filter
+                        if st.button("Hapus Filter"):
+                            selected_outlet = None
+                            selected_start_date = start_date_obj
+                            selected_end_date = end_date_obj
 
                         # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
                         start_date = selected_start_date.strftime('%Y-%m-%d')
@@ -105,11 +109,6 @@ def laporan(selected_sheet):
                     else:
                         # Jika lembar bukan "penjualan_harian", tidak perlu filter outlet
                         filtered_data = sheet_values
-
-                     
-                        
-                    else:
-                        None
 
                     # Kolom-kolom yang ingin diubah menjadi format Rupiah
                     kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
@@ -146,13 +145,6 @@ def laporan(selected_sheet):
                         if header in kolom_rupiah:
                             for j in range(1, len(filtered_data)):
                                 filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
-             # Tombol delete filter
-        if st.button("Hapus Filter"):
-                        selected_outlet = None
-                        selected_start_date = start_date_obj
-                        selected_end_date = end_date_obj
-        else:
-            None
 
                     # Konversi data menjadi format tabel HTML
                     table_html = "<table><tr>"
@@ -170,5 +162,5 @@ def laporan(selected_sheet):
                     st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian"])  # Ganti dengan lembar yang Anda inginkan
+    selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian", "suplier", "karyawan"])  # Ganti dengan lembar yang Anda inginkan
     laporan(selected_sheet)
