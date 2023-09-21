@@ -106,11 +106,7 @@ def laporan(selected_sheet):
                         # Jika lembar bukan "penjualan_harian", tidak perlu filter outlet
                         filtered_data = sheet_values
 
-                      # Tombol delete filter
-                    if st.button("Hapus Filter"):
-                        selected_outlet = None
-                        selected_start_date = start_date_obj
-                        selected_end_date = end_date_obj
+                     
                         
                     else:
                         None
@@ -150,6 +146,13 @@ def laporan(selected_sheet):
                         if header in kolom_rupiah:
                             for j in range(1, len(filtered_data)):
                                 filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+             # Tombol delete filter
+        if st.button("Hapus Filter"):
+                        selected_outlet = None
+                        selected_start_date = start_date_obj
+                        selected_end_date = end_date_obj
+        else:
+            None
 
                     # Konversi data menjadi format tabel HTML
                     table_html = "<table><tr>"
