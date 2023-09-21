@@ -61,9 +61,9 @@ def laporan(selected_sheet):
                 # Filter data berdasarkan rentang tanggal yang dipilih
                 filtered_data = [headers]
                 for row in sheet_values[1:]:
-                    tanggal_data = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                    tanggal_data = format_tanggal(tanggal_data)
-                    if start_date <= tanggal_data <= end_date:
+                    tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                    tanggal_data = format_tanggal(tanggal_data_str)
+                    if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
                         filtered_data.append(row)
 
                 # Kolom-kolom yang ingin diubah menjadi format Rupiah
