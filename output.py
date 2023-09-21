@@ -77,11 +77,7 @@ def laporan(selected_sheet):
                         # Input tanggal akhir dengan validasi rentang waktu
                         selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
 
-                        # Tombol delete filter
-                        if st.button("Hapus Filter"):
-                            selected_outlet = None
-                            selected_start_date = start_date_obj
-                            selected_end_date = end_date_obj
+                      
 
                         # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
                         start_date = selected_start_date.strftime('%Y-%m-%d')
@@ -109,6 +105,15 @@ def laporan(selected_sheet):
                     else:
                         # Jika lembar bukan "penjualan_harian", tidak perlu filter outlet
                         filtered_data = sheet_values
+
+                      # Tombol delete filter
+                    if st.button("Hapus Filter"):
+                        selected_outlet = None
+                        selected_start_date = start_date_obj
+                        selected_end_date = end_date_obj
+                        
+                    else:
+                        None
 
                     # Kolom-kolom yang ingin diubah menjadi format Rupiah
                     kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
