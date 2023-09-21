@@ -23,24 +23,33 @@ def format_tanggal(tanggal):
         except Exception as e:
             return tanggal  # Kembalikan tanggal asli jika ada kesalahan
 
-# Fungsi untuk mengubah angka menjadi format Rupiah
-def format_rupiah(angka):
-    try:
-        angka_str = "{:,.0f}".format(angka).replace(",", ".")
-        return f"Rp {angka_str}"
-    except Exception as e:
-        return angka  # Kembalikan angka asli jika ada kesalahan
+# Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
+def get_data_from_google_apps_script(selected_sheet):
+    response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
 
+# Fungsi untuk menentukan tanggal terlama dan terbaru dalam data lembar
+def cari_tanggal_terlama_terbaru(sheet_values, headers):
+    tanggal_terlama = datetime.today()
+    tanggal_terbaru = datetime(1900, 1, 1)  # Inisialisasi dengan tanggal yang sangat tua
+
+    for row in sheet_values[1:]:
+        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+        tanggal_data = format_tanggal(tanggal_data_str)
+        tanggal_data_obj = datetime.strptime(tanggal_data, '%Y-%m-%d')
+        if tanggal_data_obj < tanggal_terlama:
+            tanggal_terlama = tanggal_data_obj
+        if tanggal_data_obj > tanggal_terbaru:
+            tanggal_terbaru = tanggal_data_obj
+
+    return tanggal_terlama, tanggal_terbaru
+
+# Fungsi utama untuk menampilkan laporan dengan filter waktu
 def laporan(selected_sheet):
-    # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
-    def get_data_from_google_apps_script(selected_sheet):
-        response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        else:
-            return None
-
     data = get_data_from_google_apps_script(selected_sheet)
 
     if data is not None:
@@ -49,82 +58,43 @@ def laporan(selected_sheet):
             sheet_values = sheet_data['data']
 
             if selected_sheet == sheet_name:
-                # Temukan tanggal terlama dan tanggal terbaru dalam data
-                tanggal_terlama = None
-                tanggal_terbaru = None
-
-                for row in sheet_values[1:]:
-                    try:
-                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                        tanggal_data = datetime.strptime(tanggal_data_str, '%Y-%m-%d')
-                        if tanggal_terlama is None or tanggal_data < tanggal_terlama:
-                            tanggal_terlama = tanggal_data
-                        if tanggal_terbaru is None or tanggal_data > tanggal_terbaru:
-                            tanggal_terbaru = tanggal_data
-                    except ValueError:
-                        pass
-
-                # Set tanggal awal dan akhir dengan tanggal terlama dan tanggal terbaru
-                if tanggal_terlama and tanggal_terbaru:
-                    start_date = st.date_input("Pilih Tanggal Awal", tanggal_terlama.date())
-                    end_date = st.date_input("Pilih Tanggal Akhir", tanggal_terbaru.date())
-                else:
-                    # Jika tidak ada tanggal dalam data, beri nilai default hari ini
-                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
-
-                # Mendapatkan nama-nama kolom yang mengandung "Tanggal", "Bulan", atau "Waktu"
                 headers = sheet_values[0]
-                kolom_tanggal_bulan_waktu = [header for header in headers if re.search(r"(Tanggal|Bulan|Waktu|tanggal|bulan|waktu)", header, re.IGNORECASE)]
 
-                # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
-                if kolom_tanggal_bulan_waktu:
+                # Cek apakah lembar ini memerlukan filter waktu
+                if selected_sheet not in ["suplier", "karyawan"]:
+                    tanggal_terlama, tanggal_terbaru = cari_tanggal_terlama_terbaru(sheet_values, headers)
+
+                    konversi_tanggal_dalam_tabel(sheet_values, headers)
+
                     st.title("Filter Data Berdasarkan Tanggal")
+                    start_date = st.date_input("Pilih Tanggal Awal", min_value=tanggal_terlama.date(), max_value=tanggal_terbaru.date(), value=tanggal_terlama.date())
+                    end_date = st.date_input("Pilih Tanggal Akhir", min_value=tanggal_terlama.date(), max_value=tanggal_terbaru.date(), value=tanggal_terbaru.date())
 
-                    # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
-                    for i, header in enumerate(headers):
-                        if header in kolom_tanggal_bulan_waktu:
-                            for j in range(1, len(sheet_values)):
-                                sheet_values[j][i] = format_tanggal(sheet_values[j][i])
-
-                    # Filter data berdasarkan tanggal yang dipilih
                     filtered_data = [headers]
                     for row in sheet_values[1:]:
-                        try:
-                            tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
-                            tanggal_data = format_tanggal(tanggal_data_str)
-                            if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
-                                filtered_data.append(row)
-                        except ValueError:
-                            # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
-                            pass
+                        tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
+                        tanggal_data = format_tanggal(tanggal_data_str)
+                        if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
+                            filtered_data.append(row)
                 else:
-                    # Jika lembar tidak memiliki kolom "Tanggal", "Bulan", atau "Waktu", maka tidak ada filter waktu
                     filtered_data = sheet_values
 
-                # Kolom-kolom yang ingin diubah menjadi format Rupiah
-                kolom_rupiah = ["Total Pendapatan", "Harga", "Total Harga", "Harga Susu", "Harga Keju", "Harga Kulit", "Harga Gas", "Harga Minyak", "Harga Plastik", "Harga Kemasan", "Gaji", "Jumlah"]
+                tampilkan_tabel(filtered_data)
 
-                # Konversi data dalam kolom-kolom tersebut menjadi format Rupiah
-                for i, header in enumerate(headers):
-                    if header in kolom_rupiah:
-                        for j in range(1, len(filtered_data)):
-                            filtered_data[j][i] = format_rupiah(float(filtered_data[j][i]))
+# Fungsi untuk menampilkan tabel HTML
+def tampilkan_tabel(filtered_data):
+    table_html = "<table><tr>"
+    for header in filtered_data[0]:
+        table_html += f"<th>{header}</th>"
+    table_html += "</tr>"
+    for row in filtered_data[1:]:
+        table_html += "<tr>"
+        for cell in row:
+            table_html += f"<td>{cell}</td>"
+        table_html += "</tr>"
+    table_html += "</table>"
 
-                # Konversi data menjadi format tabel HTML
-                table_html = "<table><tr>"
-                for header in headers:
-                    table_html += f"<th>{header}</th>"
-                table_html += "</tr>"
-                for row in filtered_data[1:]:
-                    table_html += "<tr>"
-                    for cell in row:
-                        table_html += f"<td>{cell}</td>"
-                    table_html += "</tr>"
-                table_html += "</table>"
-
-                # Tampilkan tabel HTML
-                st.markdown(table_html, unsafe_allow_html=True)
+    st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
