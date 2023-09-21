@@ -14,7 +14,7 @@ def page7():
         return "Pengeluaran: Rp " + ribuan
 
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbxNLNOEH6spI2cGXRcufQ3sFKQUxgQf2F1QFrxtgXNwflEhuFdZy8iHzQM0yntI605t/exec"
+    apps_script_url = "https://script.google.com/macros/s/AKfycbyLnB24RYOAdjQWWkBdAilXeIf8Ntkb8y4Aba49VFAx4ZtJnCNSRa9ffuBLdglMQcuO/exec"
     # Tampilan Streamlit
     st.title("PENGELUARAN")
 
