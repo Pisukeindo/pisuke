@@ -56,8 +56,25 @@ def laporan(selected_sheet):
                 # Cek apakah lembar memiliki kolom "Tanggal", "Bulan", atau "Waktu"
                 if kolom_tanggal_bulan_waktu:
                     st.title("Filter Data Berdasarkan Tanggal")
-                    start_date = st.date_input("Pilih Tanggal Awal", datetime.today())
-                    end_date = st.date_input("Pilih Tanggal Akhir", datetime.today())
+                    
+                    # Cari tanggal terlama dan terbaru dalam data
+                    all_dates = [format_tanggal(row[headers.index("Tanggal")]) for row in sheet_values[1:]]
+                    start_date = min(all_dates)
+                    end_date = max(all_dates)
+
+                    # Konversi tanggal terlama dan terbaru ke objek datetime
+                    start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
+                    end_date_obj = datetime.strptime(end_date, "%Y-%m-%d")
+
+                    # Input tanggal awal dengan validasi rentang waktu
+                    selected_start_date = st.date_input("Pilih Tanggal Awal", start_date_obj, min_value=start_date_obj, max_value=end_date_obj)
+
+                    # Input tanggal akhir dengan validasi rentang waktu
+                    selected_end_date = st.date_input("Pilih Tanggal Akhir", end_date_obj, min_value=start_date_obj, max_value=end_date_obj)
+
+                    # Konversi tanggal yang dipilih kembali ke format "yyyy-mm-dd"
+                    start_date = selected_start_date.strftime('%Y-%m-%d')
+                    end_date = selected_end_date.strftime('%Y-%m-%d')
 
                     # Konversi data tanggal dalam tabel menjadi "yyyy-mm-dd"
                     for i, header in enumerate(headers):
@@ -71,7 +88,7 @@ def laporan(selected_sheet):
                         try:
                             tanggal_data_str = row[headers.index("Tanggal")]  # Ganti "Tanggal" dengan nama kolom tanggal Anda
                             tanggal_data = format_tanggal(tanggal_data_str)
-                            if start_date <= datetime.strptime(tanggal_data, '%Y-%m-%d').date() <= end_date:
+                            if start_date <= tanggal_data <= end_date:
                                 filtered_data.append(row)
                         except ValueError:
                             # Jika kolom "Tanggal" tidak ada dalam data, abaikan baris ini
