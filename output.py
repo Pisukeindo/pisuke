@@ -126,5 +126,5 @@ def laporan(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = st.selectbox("Pilih Lembar", ["pengeluaran_Harian", "penjualan_harian"])  # Ganti dengan lembar yang Anda inginkan
+    selected_sheet = "penjualan_harian"  # Ganti dengan lembar yang Anda inginkan (penjualan_harian)
     laporan(selected_sheet)
