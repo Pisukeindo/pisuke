@@ -8,6 +8,7 @@ from penjualan_harian import page3
 from karyawan import page6
 from pengeluaran_harian import page7
 from output import laporan
+from laporanqc import lap_qc
 
 # Inisialisasi status login
 if "username" not in st.session_state:
@@ -64,7 +65,7 @@ else:
         )
 
         if selected_laporan == "Laporan Quality Control":
-            laporan("qc")
+            lap_qc()
         elif selected_laporan == "Laporan Suplier":
             laporan("suplier")
         elif selected_laporan == "Laporan Karyawan":
