@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def page2():
+def qc():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbzgbjFZYnZGUU1L3JQ3FDPJAjvRo5DX_itajYqcFRsHZ_UORwDbXDwUuRNIukwgYyaOBQ/exec"
     
@@ -31,4 +31,4 @@ def page2():
             st.error("Terjadi kesalahan saat mengirim data.")
 
 if __name__ == "__main__":
-    page2()
+    qc()
