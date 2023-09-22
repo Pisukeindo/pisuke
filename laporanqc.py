@@ -39,6 +39,7 @@ def get_data_from_google_apps_script():
     else:
         return None
 
+# Ganti nama fungsi laporan menjadi lap_qc
 def lap_qc():
     data = get_data_from_google_apps_script()
 
@@ -48,6 +49,9 @@ def lap_qc():
         # Inisialisasi tanggal terlama dan terbaru
         sheet_values = data[0]['data']
         start_date = end_date = format_tanggal(sheet_values[1][0])
+
+        # Debug: Tambahkan pernyataan berikut untuk mencetak nilai start_date
+        st.write(f"start_date: {start_date}")
 
         # Input tanggal awal dengan validasi rentang waktu
         selected_start_date = st.date_input("Pilih Tanggal Awal", datetime.fromisoformat(start_date))
