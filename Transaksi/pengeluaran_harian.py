@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def page7():
+def pengeluaran_harian():
     # Fungsi untuk mengubah nilai numerik ke format Rupiah
     def format_rupiah(angka):
         angka_str = str(angka)
@@ -42,4 +42,4 @@ def page7():
             st.error("Terjadi kesalahan saat mengirim data.")
 
 if __name__ == "__main__":
-    page7()
+    pengeluaran_harian()
