@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def page3():
+def penjualan_harian():
 
     def format_rupiah(angka):
         angka_str = str(angka)
@@ -43,4 +43,4 @@ def page3():
 
 
 if __name__ == "__main__":
-    page3()
+    penjualan_harian()
