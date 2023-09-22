@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def qc():
+def quality_control():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbzgbjFZYnZGUU1L3JQ3FDPJAjvRo5DX_itajYqcFRsHZ_UORwDbXDwUuRNIukwgYyaOBQ/exec"
     
@@ -31,4 +31,4 @@ def qc():
             st.error("Terjadi kesalahan saat mengirim data.")
 
 if __name__ == "__main__":
-    qc()
+    quality_control()
