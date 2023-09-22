@@ -39,7 +39,7 @@ def get_data_from_google_apps_script():
     else:
         return None
 
-def laporan():
+def lap_qc():
     data = get_data_from_google_apps_script()
 
     if data is not None:
@@ -70,4 +70,4 @@ def laporan():
                 st.write([tanggal_data] + [format_rupiah(float(cell)) if header in kolom_rupiah else cell for header, cell in zip(headers[1:], row[1:])])
 
 if __name__ == "__main__":
-    laporan()
+    lap_qc()
