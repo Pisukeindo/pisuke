@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 
 # URL Google Apps Script yang menghasilkan data JSON
-google_apps_script_url = "https://script.google.com/macros/s/AKfycbwMHmmODwrnhdIK_I1XPQjadWwnTqyY0Vb3EHQc3v0LOHYZ3Y1Am14PwgWOaUoDxD8mCw/execc"
+google_apps_script_url = "https://script.google.com/macros/s/AKfycbyfRPrnDuS669c1uBAIZlLVGxe_5wrueTuDN0nsIeY2rINtH_LLE5HyckUcvTcxKcU_hA/exec"
 # Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
 def format_tanggal(tanggal):
     try:
