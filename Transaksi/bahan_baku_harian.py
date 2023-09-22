@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-def page5():
+def bahan_baku_harian():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbw9IFGsHreAqh4qQiRuGnBk_D0G32d3XfhjZjYY5xW_lrUewF3A3-YFbo_U7Kzsi4dw/exec"
 
@@ -40,4 +40,4 @@ def page5():
             st.error("Terjadi kesalahan saat mengirim data.")
 
 if __name__ == "__main__":
-   page5()
+   bahan_baku_harian()
