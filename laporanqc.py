@@ -23,7 +23,7 @@ def format_tanggal(tanggal):
         except Exception as e:
             return tanggal  # Kembalikan tanggal asli jika ada kesalahan
 
-def laporan(selected_sheet):
+def lap_qc(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar "qc"
     def get_data_from_google_apps_script():
         response = requests.get(google_apps_script_url, params={"sheet": "qc"})
@@ -106,4 +106,4 @@ def laporan(selected_sheet):
 
 if __name__ == "__main__":
     selected_sheet = "qc"  # Hanya membaca lembar "qc"
-    laporan(selected_sheet)
+    lap_qc(selected_sheet)
