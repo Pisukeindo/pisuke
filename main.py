@@ -1,12 +1,8 @@
 import streamlit as st
 from log import login
 from input import pertambahan_aset,suplier,karyawan
-
-from Transaksi import bahan_baku_harian
-from Transaksi import quality_control
-from Transaksi import penjualan_harian
-from Transaksi import pengeluaran_harian
-from output import laporan
+from Transaksi import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
+from Laporan import output, laporan_quality_control
 from laporanqc import lap_qc
 
 # Inisialisasi status login
@@ -64,18 +60,18 @@ else:
         )
 
         if selected_laporan == "Laporan Quality Control":
-            lap_qc("qc")
+            laporan_quality_control.lap_qc()
         elif selected_laporan == "Laporan Suplier":
-            laporan("suplier")
+            output.laporan("suplier")
         elif selected_laporan == "Laporan Karyawan":
-            laporan("karyawan")
+            output.laporan("karyawan")
         elif selected_laporan == "Laporan Bahan Baku Harian":
-            laporan("bahan_baku_harian")
+            output.laporan("bahan_baku_harian")
         elif selected_laporan == "Laporan Stok Bahan Baku":
-            laporan("stok_bahan_baku")
+            output.laporan("stok_bahan_baku")
         elif selected_laporan == "Laporan Pengeluaran Harian":
-            laporan("pengeluaran_harian")
+            output.laporan("pengeluaran_harian")
         elif selected_laporan == "Laporan Penjualan Harian":
-            laporan("penjualan_harian")
+            output.laporan("penjualan_harian")
         elif selected_laporan == "Laporan Pertambahan Aset":
-            laporan("pertambahan_aset")
+            output.laporan("pertambahan_aset")
