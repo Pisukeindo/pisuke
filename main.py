@@ -3,12 +3,12 @@ from input import pertambahan_aset
 from input import suplier
 from input import karyawan
 from login import login
-from suplier import page1
-from pertambahan_aset import page4
+# from suplier import page1
+# from pertambahan_aset import page4
 from bahan_baku_harian import page5
 from quality_control import page2
 from penjualan_harian import page3
-from karyawan import page6
+# from karyawan import page6
 from pengeluaran_harian import page7
 from output import laporan
 from laporanqc import lap_qc
@@ -53,11 +53,11 @@ else:
 
         if selected_page == "Suplier":
             
-            page1()
+            suplier.page1()
         elif selected_page == "Pertambahan Aset":
-            page4()
+            pertambahan_aset.page4()
         elif selected_page == "Karyawan":
-            page6()
+            karyawan.page6()
         
 
     elif selected_menu == "Laporan":
