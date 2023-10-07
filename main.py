@@ -2,7 +2,7 @@ import streamlit as st
 from input import pertambahan_aset
 from input import suplier
 from input import karyawan
-from login import login
+from log import login
 from bahan_baku_harian import page5
 from quality_control import page2
 from penjualan_harian import page3
