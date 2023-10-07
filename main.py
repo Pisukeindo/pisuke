@@ -3,7 +3,6 @@ from log import login
 from input import pertambahan_aset,suplier,karyawan
 from Transaksi import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
 from Laporan import output, laporan_quality_control
-from laporanqc import lap_qc
 
 # Inisialisasi status login
 if "username" not in st.session_state:
