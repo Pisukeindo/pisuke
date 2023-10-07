@@ -18,7 +18,7 @@ def format_tanggal(tanggal):
         except Exception as e:
             return tanggal
 
-def lap_qc():
+def laporan():
     def get_data_from_google_apps_script():
         response = requests.get(google_apps_script_url, params={"sheet": "qc"})
         if response.status_code == 200:
