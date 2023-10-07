@@ -3,7 +3,7 @@ import requests
 import re
 from datetime import datetime
 
-google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
+google_apps_script_url = "https://script.google.com/macros/s/AKfycbw6jvSdbuMj1rFhGPu2smSlcqs6eTLoF5U_Cz4sNvgGw1we09xdI1vJFwxI3lTpI9Tx/exec"
 
 def format_tanggal(tanggal):
     try:
@@ -86,4 +86,4 @@ def lap_qc():
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    lap_qc()
+    laporan()
