@@ -59,7 +59,7 @@ else:
         )
 
         if selected_laporan == "Laporan Quality Control":
-            laporan_quality_control.lap_qc()
+            laporan_quality_control.laporan()
         elif selected_laporan == "Laporan Suplier":
             output.laporan("suplier")
         elif selected_laporan == "Laporan Karyawan":
