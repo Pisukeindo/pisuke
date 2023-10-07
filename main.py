@@ -19,7 +19,7 @@ else:
 
     if selected_menu == "Data Harian":
         selected_page = st.sidebar.radio(
-            "Input Harian:",
+            "Input Data Harian:",
             ["Quality Control", "Penjualan Harian", "Bahan Baku Harian", "Pengeluaran Harian"]
         )
 
@@ -36,9 +36,9 @@ else:
             st.title("Pengeluaran Harian")
             pengeluaran_harian.page7()
 
-    elif selected_menu == "Data Mnaajemen":
+    elif selected_menu == "Data Manajemen":
         selected_page = st.sidebar.radio(
-            "Input Data:",
+            "Input Data Manajemen:",
             ["Suplier", "Pertambahan Aset", "Karyawan"]
         )
 
