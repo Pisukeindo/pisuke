@@ -1,12 +1,11 @@
 import streamlit as st
-from input import pertambahan_aset
-from input import suplier
-from input import karyawan
 from log import login
-from bahan_baku_harian import page5
-from quality_control import page2
-from penjualan_harian import page3
-from pengeluaran_harian import page7
+from input import pertambahan_aset,suplier,karyawan
+
+from Transaksi import bahan_baku_harian
+from Transaksi import quality_control
+from Transaksi import penjualan_harian
+from Transaksi import pengeluaran_harian
 from output import laporan
 from laporanqc import lap_qc
 
@@ -31,16 +30,16 @@ else:
 
         if selected_page == "Quality Control":
             st.title("Quality Control")
-            page2()
+            quality_control.page2()
         elif selected_page == "Penjualan Harian":
             st.title("Penjualan Harian")
-            page3()
+            penjualan_harian.page3()
         elif selected_page == "Bahan Baku Harian":
             st.title("Bahan Baku Harian")
-            page5()
+            bahan_baku_harian.page5()
         elif selected_page == "Pengeluaran Harian":
             st.title("Pengeluaran Harian")
-            page7()
+            pengeluaran_harian.page7()
 
     elif selected_menu == "Input Data":
         selected_page = st.sidebar.radio(
