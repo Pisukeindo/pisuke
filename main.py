@@ -1,5 +1,5 @@
 import streamlit as st
-from Input_Data import karyawan, pertambahan_aset, suplier
+from Input_Data import karyawan,pertambahan_aset,suplier
 from login import login
 from suplier import page1
 from pertambahan_aset import page4
