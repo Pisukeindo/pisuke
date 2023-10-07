@@ -20,10 +20,10 @@ else:
     if selected_menu == "Data Harian":
         selected_page = st.sidebar.radio(
             "Input Data Harian:",
-            ["Quality Control", "Penjualan Harian", "Bahan Baku Harian", "Pengeluaran Harian"]
+            ["Quality Control Harian", "Penjualan Harian", "Bahan Baku Harian", "Pengeluaran Harian"]
         )
 
-        if selected_page == "Quality Control":
+        if selected_page == "Quality Control Harian":
             st.title("Quality Control")
             quality_control.page2()
         elif selected_page == "Penjualan Harian":
