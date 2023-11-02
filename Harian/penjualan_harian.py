@@ -17,7 +17,7 @@ def penjualan_harian():
     apps_script_url = "https://script.google.com/macros/s/AKfycbz2nXCUxvTQ_9DD8g6_Pd-F52YFJRX0164k69Tcyh67UwAHeaicAlBdlWYalTzxd47C/exec"
     
     # Tampilan Streamlit
-    st.title("PENJUALAN HARIAN")
+    st.write("Masukkan Data:")
     
     # Kolom input
     tanggal = st.date_input("Tanggal")
