@@ -44,11 +44,11 @@ else:
 
         if selected_page == "Suplier":
             
-            suplier.page1()
+            suplier.suplier()
         elif selected_page == "Pertambahan Aset":
-            pertambahan_aset.page4()
+            pertambahan_aset.pertambahan_aset()
         elif selected_page == "Karyawan":
-            karyawan.page6()
+            karyawan.karyawan()
         
 
     elif selected_menu == "Laporan":
