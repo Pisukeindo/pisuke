@@ -7,7 +7,7 @@ google_apps_script_url = "https://script.google.com/macros/s/AKfycbw6jvSdbuMj1rF
 
 
 
-def laporan():
+def qc():
     
     def format_tanggal(tanggal):
     try:
@@ -89,4 +89,4 @@ def laporan():
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    laporan()
+    qc()
