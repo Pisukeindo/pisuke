@@ -25,16 +25,16 @@ else:
 
         if selected_page == "Quality Control Harian":
             st.title("Quality Control")
-            quality_control.page2()
+            quality_control.quality_control()
         elif selected_page == "Penjualan Harian":
             st.title("Penjualan Harian")
-            penjualan_harian.page3()
+            penjualan_harian.penjualan_harian()
         elif selected_page == "Bahan Baku Harian":
             st.title("Bahan Baku Harian")
-            bahan_baku_harian.page5()
+            bahan_baku_harian.bahan_baku_harian()
         elif selected_page == "Pengeluaran Harian":
             st.title("Pengeluaran Harian")
-            pengeluaran_harian.page7()
+            pengeluaran_harian.engeluaran_harian()
 
     elif selected_menu == "Data Manajemen":
         selected_page = st.sidebar.radio(
