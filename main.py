@@ -3,7 +3,6 @@ from log import login
 from Manajemen import pertambahan_aset,suplier,karyawan
 from Harian import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
 from Laporan import output
-from Laporan import laporan_quality_control
 # Inisialisasi status login
 if "username" not in st.session_state:
     st.session_state.username = None
@@ -59,7 +58,7 @@ else:
         )
 
         if selected_laporan == "Laporan Quality Control":
-            laporan_quality_control.qc()
+            output.laporan("qc")
         elif selected_laporan == "Laporan Suplier":
             output.laporan("suplier")
         elif selected_laporan == "Laporan Karyawan":
