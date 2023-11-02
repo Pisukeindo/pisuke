@@ -5,7 +5,11 @@ from datetime import datetime
 
 google_apps_script_url = "https://script.google.com/macros/s/AKfycbw6jvSdbuMj1rFhGPu2smSlcqs6eTLoF5U_Cz4sNvgGw1we09xdI1vJFwxI3lTpI9Tx/exec"
 
-def format_tanggal(tanggal):
+
+
+def laporan():
+    
+    def format_tanggal(tanggal):
     try:
         tanggal_obj = datetime.fromisoformat(tanggal)
         tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
@@ -17,8 +21,7 @@ def format_tanggal(tanggal):
             return tanggal_formatted
         except Exception as e:
             return tanggal
-
-def laporan():
+            
     def get_data_from_google_apps_script():
         response = requests.get(google_apps_script_url, params={"sheet": "qc"})
         if response.status_code == 200:
@@ -84,3 +87,6 @@ def laporan():
                 table_html += "</table>"
 
                 st.markdown(table_html, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    laporan()
