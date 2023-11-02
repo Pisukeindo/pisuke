@@ -16,7 +16,7 @@ def pengeluaran_harian():
     # URL layanan web Apps Script
     apps_script_url = "https://script.google.com/macros/s/AKfycbwTRih1hY2bO0TGoc6MAgdn6faZO5vW6fAE1Zgi9t7cfQoWHktKg4hoLvGKopp7pe3V/exec"
     # Tampilan Streamlit
-    st.title("PENGELUARAN")
+    st.write("Masukkan Data:")
 
     # Kolom input
     tanggal = st.date_input("Tanggal")
