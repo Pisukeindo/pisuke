@@ -6,7 +6,7 @@ def bahan_baku_harian():
     apps_script_url = "https://script.google.com/macros/s/AKfycbw9IFGsHreAqh4qQiRuGnBk_D0G32d3XfhjZjYY5xW_lrUewF3A3-YFbo_U7Kzsi4dw/exec"
 
     # Tampilan Streamlit
-    st.title("BAHAN BAKU HARIAN")
+    st.write("Masukkan Data:")
 
     # Kolom input
     tanggal = st.date_input("Tanggal")
