@@ -14,7 +14,7 @@ def pengeluaran_harian():
         return "Pengeluaran: Rp " + ribuan
 
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbyLnB24RYOAdjQWWkBdAilXeIf8Ntkb8y4Aba49VFAx4ZtJnCNSRa9ffuBLdglMQcuO/exec"
+    apps_script_url = "https://script.google.com/macros/s/AKfycbwTRih1hY2bO0TGoc6MAgdn6faZO5vW6fAE1Zgi9t7cfQoWHktKg4hoLvGKopp7pe3V/exec"
     # Tampilan Streamlit
     st.title("PENGELUARAN")
 
