@@ -3,7 +3,7 @@ import requests
 
 def suplier():
     # URL layanan web Apps Script
-    apps_script_url = "https://script.google.com/macros/s/AKfycbwV9P5upUPCVd3mK4i3X8CngIxvoxHhrk_SwnWbqTAjkTHp25j9uTj3yCth6r8jtmcfQg/exec"
+    apps_script_url = "https://script.google.com/macros/s/AKfycbw5gkL-bHWXYB8KuLaYaB4MEhM1sLK8nkp47vdcOzAOjbQ9Lwuaqgqa81vhJCegoHWtSw/exec"
     # Tampilan Streamlit
     st.title("SUPLIER")
 
