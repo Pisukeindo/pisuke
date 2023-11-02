@@ -8,6 +8,8 @@ def suplier():
     st.title("SUPLIER")
 
     # Kolom input
+    tanggal = st.date_input("Tanggal")
+    tanggal_str = tanggal.strftime('%Y-%m-%d')
     nama_suplier = st.text_input("Nama Suplier")
     jenis_barang = st.text_input("Jenis Barang")
     kontak = st.text_input("Kontak")
@@ -15,7 +17,7 @@ def suplier():
 
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?nama_suplier={nama_suplier}&jenis_barang={jenis_barang}&kontak={kontak}&keterangan={keterangan}"
+        url = f"{apps_script_url}?tanggal={tanggal_str}&nama_suplier={nama_suplier}&jenis_barang={jenis_barang}&kontak={kontak}&keterangan={keterangan}"
 
         # Mengirim permintaan HTTP GET ke Apps Script
         response = requests.get(url)
