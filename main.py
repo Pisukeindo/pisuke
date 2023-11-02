@@ -1,7 +1,7 @@
 import streamlit as st
 from log import login
 from input import pertambahan_aset,suplier,karyawan
-from Transaksi import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
+from Harian import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
 from Laporan import output, laporan_quality_control
 
 # Inisialisasi status login
