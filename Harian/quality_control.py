@@ -6,7 +6,6 @@ def quality_control():
     apps_script_url = "https://script.google.com/macros/s/AKfycbzgbjFZYnZGUU1L3JQ3FDPJAjvRo5DX_itajYqcFRsHZ_UORwDbXDwUuRNIukwgYyaOBQ/exec"
     
     # Tampilan Streamlit
-    st.title("QUALITY CONTROL")
     st.write("Masukkan Data:")
     
     # Kolom input
