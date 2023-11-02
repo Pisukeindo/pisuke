@@ -34,7 +34,7 @@ else:
             bahan_baku_harian.bahan_baku_harian()
         elif selected_page == "Pengeluaran Harian":
             st.title("Pengeluaran Harian")
-            pengeluaran_harian.engeluaran_harian()
+            pengeluaran_harian.pengeluaran_harian()
 
     elif selected_menu == "Data Manajemen":
         selected_page = st.sidebar.radio(
