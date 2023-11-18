@@ -2,7 +2,7 @@ import streamlit as st
 from log import login
 from Manajemen import pertambahan_aset,suplier,karyawan
 from Harian import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian,produksi_harian
-from Laporan import output,lap_karyawan
+from Laporan import output
 # Inisialisasi status login
 if "username" not in st.session_state:
     st.session_state.username = None
@@ -84,5 +84,5 @@ else:
         elif selected_laporan == "Suplier":
             output.laporan("suplier")
         elif selected_laporan == "Karyawan":
-            lap_karyawan.lap_karyawan()
+            output.laporan("karyawan")
      
