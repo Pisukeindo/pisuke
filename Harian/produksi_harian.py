@@ -16,7 +16,7 @@ def produksi_harian():
     
     if st.button("Kirim Data"):
         # Membangun URL dengan parameter query string
-        url = f"{apps_script_url}?tanggal={tanggal_str}&pisang_aroma={pisang_aroma}&cheese_roll={jumlah_cheese_roll}"
+        url = f"{apps_script_url}?tanggal={tanggal_str}&pisang_aroma={pisang_aroma}&cheese_roll={cheese_roll}"
     
         # Mengirim permintaan HTTP GET ke Apps Script
         response = requests.get(url)
