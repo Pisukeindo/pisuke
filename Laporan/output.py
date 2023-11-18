@@ -4,7 +4,7 @@ import requests
 # URL Google Apps Script yang menghasilkan data JSON
 google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
 
-def tampilkan_data(selected_sheet):
+def laporan(selected_sheet):
     # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
     def get_data_from_google_apps_script(selected_sheet):
         response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
@@ -41,5 +41,5 @@ def tampilkan_data(selected_sheet):
                 st.markdown(table_html, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    selected_sheet = "pengeluaran_Harian"  # Ganti dengan lembar yang Anda inginkan
-    tampilkan_data(selected_sheet)
+
+    laporan(selected_sheet)
