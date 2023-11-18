@@ -7,6 +7,7 @@ from datetime import datetime
 google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
 
 # Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
+# Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
 def format_tanggal(tanggal):
     try:
         # Ubah string tanggal ke dalam objek datetime dengan menyertakan zona waktu UTC
