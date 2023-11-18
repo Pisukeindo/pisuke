@@ -13,15 +13,12 @@ def format_tanggal(tanggal):
         tanggal_obj = datetime.fromisoformat(tanggal)
         # Ubah format tanggal menjadi "yyyy-mm-dd"
         tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
+        print(f"Original: {tanggal}, Formatted: {tanggal_formatted}")
         return tanggal_formatted
     except Exception as e:
-        # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
-        try:
-            tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
-            tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
-            return tanggal_formatted
-        except Exception as e:
-            return tanggal  # Kembalikan tanggal asli jika ada kesalahan
+        print(f"Error formatting tanggal: {e}")
+        return tanggal  # Kembalikan tanggal asli jika ada kesalahan
+
 
 # Fungsi untuk mengubah angka menjadi format Rupiah
 def format_rupiah(angka):
