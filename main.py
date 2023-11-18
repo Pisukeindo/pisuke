@@ -84,5 +84,5 @@ else:
         elif selected_laporan == "Suplier":
             output.laporan("suplier")
         elif selected_laporan == "Karyawan":
-            lap_karyawan()
+            lap_karyawan.lap_karyawan()
      
