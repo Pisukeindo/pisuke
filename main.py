@@ -55,34 +55,34 @@ else:
 
     elif selected_menu == "Laporan Harian":
         selected_laporan = st.sidebar.radio(
-            "Laporan:",
-            ["Laporan Bahan Baku Harian","Laporan Produksi Harian", "Laporan Pengeluaran Harian", "Laporan Penjualan Harian", "Laporan Stok Bahan Baku", "Laporan Quality Control"]
+            "Laporan Harian:",
+            ["Bahan Baku Harian","Produksi Harian", "Pengeluaran Harian", "Penjualan Harian", "Stok Bahan Baku", "Quality Control"]
         )
 
-        if selected_laporan == "Laporan Bahan Baku Harian":
+        if selected_laporan == "Bahan Baku Harian":
             output.laporan("bahan_baku_harian")
-        elif selected_laporan == "Laporan Pengeluaran Harian":
+        elif selected_laporan == "Pengeluaran Harian":
             output.laporan("pengeluaran_harian")
-        elif selected_laporan == "Laporan Produksi Harian":
+        elif selected_laporan == "Produksi Harian":
             output.laporan("produksi_harian")
-        elif selected_laporan == "Laporan Penjualan Harian":
+        elif selected_laporan == "Penjualan Harian":
             output.laporan("penjualan_harian")
-        elif selected_laporan == "Laporan Stok Bahan Baku":
+        elif selected_laporan == "Stok Bahan Baku":
             output.laporan("stok_bahan_baku")
-        elif selected_laporan == "Laporan Quality Control":
+        elif selected_laporan == "Quality Control":
             output.laporan("qc")
 
 
     elif selected_menu == "Laporan Manajemen":
         selected_laporan = st.sidebar.radio(
-            "Laporan:",
-            ["Laporan Suplier", "Laporan Karyawan", "Laporan Pertambahan Aset"]
+            "Laporan Manajemen:",
+            ["Suplier", "Karyawan", "Pertambahan Aset"]
         )
 
-        if selected_laporan == "Laporan Pertambahan Aser":
+        if selected_laporan == "Pertambahan Aser":
             output.laporan("Pertambahan Aset")
-        elif selected_laporan == "Laporan Suplier":
+        elif selected_laporan == "Suplier":
             output.laporan("suplier")
-        elif selected_laporan == "Laporan Karyawan":
+        elif selected_laporan == "Karyawan":
             output.laporan("karyawan")
      
