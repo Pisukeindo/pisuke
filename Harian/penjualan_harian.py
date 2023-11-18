@@ -22,7 +22,7 @@ def penjualan_harian():
     # Kolom input
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
-    outlet = st.selectbox("Pilih Outlet", ["Pogung", "Pandega Mixue", "Pandega Massiva"])
+    outlet = st.selectbox("Pilih Outlet", ["Pogung Pagi","Pogung Sore", "Pandega Mixue Pagi", "Pandega Mixue Sore", "Pandega Massiva", "UNY Pagi", "UNY Sore", "Monjali"])
     penjualan_pisang_aroma = st.number_input("Penjualan Pisang Aroma", min_value=0)
     penjualan_cheese_roll = st.number_input("Penjualan Cheese Roll", min_value=0)
     total_pendapatan = ((penjualan_pisang_aroma*1700)+(penjualan_cheese_roll*2000))
