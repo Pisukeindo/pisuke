@@ -1,4 +1,3 @@
-
 import streamlit as st
 import requests
 import re
@@ -77,14 +76,3 @@ if __name__ == "__main__":
     laporan(selected_sheet)
 
 
-def laporan(selected_sheet):
-    # Fungsi untuk mengambil data dari Google Apps Script sesuai dengan lembar yang diminta
-    def get_data_from_google_apps_script(selected_sheet):
-        response = requests.get(google_apps_script_url, params={"sheet": selected_sheet})
-        if response.status_code == 200:
-            data = response.json()
-            return data
-        else:
-            return None
-
-    data = get_data_from_google_apps_script(selected_sheet)
