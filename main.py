@@ -1,7 +1,7 @@
 import streamlit as st
 from log import login
 from Manajemen import pertambahan_aset,suplier,karyawan
-from Harian import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian
+from Harian import bahan_baku_harian,quality_control,penjualan_harian,pengeluaran_harian,produksi_harian
 from Laporan import output
 # Inisialisasi status login
 if "username" not in st.session_state:
@@ -19,7 +19,7 @@ else:
     if selected_menu == "Data Harian":
         selected_page = st.sidebar.radio(
             "Input Data Harian:",
-            ["Quality Control Harian", "Penjualan Harian", "Bahan Baku Harian", "Pengeluaran Harian"]
+            ["Quality Control Harian", "Penjualan Harian", "Bahan Baku Harian", "Pengeluaran Harian", "Produksi Harian"]
         )
 
         if selected_page == "Quality Control Harian":
@@ -34,6 +34,9 @@ else:
         elif selected_page == "Pengeluaran Harian":
             st.title("Pengeluaran Harian")
             pengeluaran_harian.pengeluaran_harian()
+        elif selected_page == "Produksi Harian":
+            st.title("Produksi Harian")
+            produksi_harian.produksi_harian()
 
     elif selected_menu == "Data Manajemen":
         selected_page = st.sidebar.radio(
