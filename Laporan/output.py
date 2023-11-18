@@ -11,6 +11,11 @@ def format_tanggal(tanggal):
     try:
         # Ubah string tanggal ke dalam objek datetime
         tanggal_obj = datetime.fromisoformat(tanggal)
+
+        # Tetapkan zona waktu Indonesia (WIB)
+        zona_waktu_indo = pytz.timezone('Asia/Jakarta')
+        tanggal_obj = zona_waktu_indo.localize(tanggal_obj)
+
         # Ubah format tanggal menjadi "yyyy-mm-dd"
         tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
         return tanggal_formatted
