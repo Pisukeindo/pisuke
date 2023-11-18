@@ -22,7 +22,7 @@ def main():
 
     # Tombol untuk mengambil dan menampilkan data
     if st.button("Tampilkan Data"):
-        data = fetch_data_from_google_script()
+        data = lap_karyawan()
         
         # Jika data berhasil diambil, tampilkan dalam bentuk tabel
         if data is not None:
