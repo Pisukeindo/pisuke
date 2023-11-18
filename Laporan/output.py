@@ -7,25 +7,21 @@ from datetime import datetime
 google_apps_script_url = "https://script.google.com/macros/s/AKfycbwr-2CQmea36435pg0gZJ8Yc686_m5xDxKx66H_8KC-9QOde6bpnHbE4wTyTjTmceda/exec"
 
 # Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
-# Fungsi untuk mengubah format tanggal menjadi "yyyy-mm-dd"
 def format_tanggal(tanggal):
     try:
-        # Ubah string tanggal ke dalam objek datetime dengan menyertakan zona waktu UTC
-        tanggal_obj = datetime.fromisoformat(tanggal + '+00:00')
+        # Ubah string tanggal ke dalam objek datetime
+        tanggal_obj = datetime.fromisoformat(tanggal)
         # Ubah format tanggal menjadi "yyyy-mm-dd"
         tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
-        print(f"Original: {tanggal}, Formatted: {tanggal_formatted}")
         return tanggal_formatted
     except Exception as e:
         # Jika format tanggal tidak valid, coba ekstrak tanggal dari format yang diberikan
         try:
             tanggal_obj = datetime.strptime(tanggal, '%Y-%m-%dT%H:%M:%S.%fZ')
-            tanggal_obj = tanggal_obj.replace(tzinfo=timezone.utc)
             tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
             return tanggal_formatted
         except Exception as e:
             return tanggal  # Kembalikan tanggal asli jika ada kesalahan
-
 
 # Fungsi untuk mengubah angka menjadi format Rupiah
 def format_rupiah(angka):
