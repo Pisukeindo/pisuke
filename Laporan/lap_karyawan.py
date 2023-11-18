@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 
-def fetch_data_from_google_script():
+def lap_karyawan():
     # Ganti URL dengan URL Google Apps Script Anda
     google_apps_script_url = "https://script.google.com/macros/s/AKfycbx14paFLfnGmvGtwR7-Cbjh5CxPrK9puiC_ofNUnlMH/dev"
     # Mengirim permintaan HTTP ke Apps Script
