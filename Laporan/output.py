@@ -15,6 +15,7 @@ def format_tanggal(tanggal):
         # Tetapkan zona waktu Indonesia (WIB)
         zona_waktu_indo = pytz.timezone('Asia/Jakarta')
         tanggal_obj = zona_waktu_indo.localize(tanggal_obj)
+        tanggal_obj = tanggal_obj + timedelta(days=1)
 
         # Ubah format tanggal menjadi "yyyy-mm-dd"
         tanggal_formatted = tanggal_obj.strftime('%Y-%m-%d')
