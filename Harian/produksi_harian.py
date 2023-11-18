@@ -11,7 +11,7 @@ def produksi_harian():
     tanggal = st.date_input("Tanggal")
     tanggal_str = tanggal.strftime('%Y-%m-%d')
     pisang_aroma = st.number_input("Produksi Pisang Aroma", min_value=0)
-    cheese_roll = st.number_input("{Produksi Cheese Roll", min_value=0)
+    cheese_roll = st.number_input("Produksi Cheese Roll", min_value=0)
     
     
     if st.button("Kirim Data"):
