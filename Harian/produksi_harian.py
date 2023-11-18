@@ -9,7 +9,7 @@ def produksi_harian():
     
     # Kolom input
     tanggal = st.date_input("Tanggal")
-    tanggal_str = tanggal.strftime('%Y-%m-%d')
+    tanggal_str = tanggal.strftime('%d-%m-%y')
     pisang_aroma = st.number_input("Produksi Pisang Aroma", min_value=0)
     cheese_roll = st.number_input("Produksi Cheese Roll", min_value=0)
     
